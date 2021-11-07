@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>CellphoneS - Điện thoại, Laptop, iPad, phụ kiện chính hãng, giá tốt nhất</title>
+    <link rel="icon" href="https://cdn.cellphones.com.vn/media/favicon/default/logo-cps.png">
+    <link rel="stylesheet" href="~/assets/fasm/css/all.css">
+    <link rel="stylesheet" href="~/assets/css/style.css" type="text/css">
+    @RenderSection("css", false)
+</head>
+<body ng-app="MyApp">
+    <div class="wrapper">
+        <div class="overlay"></div>
+        @Html.Partial("_Menu")
+        <div>
+            <div class="behind"></div>
+            @RenderBody()
+        </div>
+    </div>
+    </div>
+    <div style="clear: both;"></div>
+    <div class="footer">
+        <div>
+            <div style="clear: both;"></div>
+            <div class="container">
+                <div class="col-5 col-m-10 col-s-10" style="min-height: 166px">
+                    <h4>Tìm cửa hàng</h4>
+                    <p>Tìm cửa hàng gần nhất</p>
+                    <p>Mua hàng từ xa</p>
+                    <h4>Phương thức thanh toán</h4>
+                </div>
+                <div class="col-5 col-m-10 col-s-10" style="min-height: 166px">
+                    <p>Gọi mua hàng: <span>1800.2097</span> (8h00 - 22h00)</p>
+                    <p>Gọi khiếu nại: <span>1800.2063</span> (8h00 - 22h30)</p>
+                    <p>Gọi bảo hành: <span>1800.2064</span> (8h00 - 22h00)</p>
+                    <h4>Đối tác dịch vụ bảo hành</h4>
+                    <p>Điện thoại - Máy tính</p>
+                    <img src="images/dtv_logo.PNG" alt="" style="width: 50%;max-height: 50px;">
+                </div>
+                <div class="col-5 col-m-10 col-s-10" style="min-height: 166px">
+                    <p>Mua hàng và thanh toán Online</p>
+                    <p>Mua hàng trả góp Online</p>
+                    <p>Tra thông tin đơn hàng</p>
+                    <p>Tra điểm Smember</p>
+                    <p>Tra thông tin bảo hành</p>
+                    <p>Trung tâm bảo hành chính hãng</p>
+                    <p>Quy định về việc sao lưu dữ liệu</p>
+                    <p>Dịch vụ bảo hành điện thoại</p>
+                </div>
+                <div class="col-5 col-m-10 col-s-10" style="min-height: 166px">
+                    <p>Quy chế hoạt động</p>
+                    <p>Chính sách Bảo hành</p>
+                    <p>Liên hệ hợp tác kinh doanh</p>
+                    <p>Đơn Doanh nghiệp</p>
+                    <p>Ưu đãi từ đối tác</p>
+                    <p>Tuyển dụng</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div style="clear: both;"></div>
+    <div class="footer-info">
+        <div class="container">
+            <p>Công ty TNHH Thương mại và dịch vụ kỹ thuật DIỆU PHÚC - GPĐKKD: 0316172372 do sở KH & ĐT TP. HCM cấp ngày 02/03/2020. Địa chỉ: 350-352 Võ Văn Kiệt, Phường Cô Giang, Quận 1, Thành phố Hồ Chí Minh, Việt Nam. Điện thoại: 028.7108.9666.</p>
+        </div>
+    </div>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>  
+    <script src="~/Scripts/dirPagination.js"></script>
+    <script src="~/assets/Javascript/main.js"></script>
+    <script src="~/assets/Javascript/quantity.js"></script>
+    <script src="~/assets/Javascript/find.js"></script>
+    <script src="~/Scripts/Controller/MenuController.js"></script>
+
+    @RenderSection("js", false)
+</body>
+</html>

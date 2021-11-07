@@ -1,0 +1,168 @@
+﻿
+<div class="brand" ng-controller="ProductsBrand">
+    <div class="container" style="background-color: white; display: table;">
+        <div class="breadcrumbs" style="padding-top: 10px; padding-bottom: 20px;">
+            <ul style="font-size:14px !important;">
+                <li class="home">
+                    <a href="">Home</a>
+                    <i class="far fa-chevron-right"></i>
+                </li>
+                <li class="category1">
+                    <a href="">Điện thoại</a>
+                    <i class="far fa-chevron-right"></i>
+                </li>
+                <li class="category14" style="text-decoration: none;">
+                    <a href="">Apple</a>
+                    <i class="far fa-chevron-right" style="display: none;"></i>
+                </li>
+            </ul>
+        </div>
+        <div class="col-3 col-m-0 col-s-0 left-side">
+            <div style="border: 1px solid rgb(238 238 238); margin-bottom: 10px;">
+                <div class="tittle" style="padding: 7px; border-bottom: 1px solid rgb(238 238 238);">Loại điện thoại</div>
+                <ul style="list-style: none; margin-left: 15px; padding-left: 5px;">
+                    <li>Tất cả</li>
+                    <li>Android</li>
+                    <li>iPhone(iOS)</li>
+                </ul>
+            </div>
+            <div style="border: 1px solid rgb(238 238 238); margin-bottom: 10px;">
+                <div class="tittle" style="padding: 7px; border-bottom: 1px solid rgb(238 238 238);">Dung lượng RAM</div>
+                <ul style="list-style: none; margin-left: 15px; padding-left: 5px;">
+                    <li>Tất cả</li>
+                    <li>4GB-6GB</li>
+                    <li>Dưới 4GB</li>
+                </ul>
+            </div>
+            <div style="border: 1px solid rgb(238 238 238); margin-bottom: 10px;">
+                <div class="tittle" style="padding: 7px; border-bottom: 1px solid rgb(238 238 238);">Bộ nhớ trong</div>
+                <ul style="list-style: none; margin-left: 15px; padding-left: 5px;">
+                    <li>Tất cả</li>
+                    <li>128GB và 256GB</li>
+                    <li>32GB và 64GB</li>
+                    <li>Trên 512GB</li>
+                </ul>
+            </div>
+            <div style="border: 1px solid rgb(238 238 238); margin-bottom: 10px;">
+                <div class="tittle" style="padding: 7px; border-bottom: 1px solid rgb(238 238 238);">Kích thước màn hình</div>
+                <ul style="list-style: none; margin-left: 15px; padding-left: 5px;">
+                    <li>Tất cả</li>
+                    <li>Dưới 6 inch</li>
+                    <li>Trên 6 inch</li>
+                </ul>
+            </div>
+            <div style="border: 1px solid rgb(238 238 238); margin-bottom: 10px;">
+                <div class="tittle" style="padding: 7px; border-bottom: 1px solid rgb(238 238 238);">Kiểu màn hình</div>
+                <ul style="list-style: none; margin-left: 15px; padding-left: 5px;">
+                    <li>Tất cả</li>
+                    <li>Tai thỏ</li>
+                </ul>
+            </div>
+            <div style="border: 1px solid rgb(238 238 238); margin-bottom: 10px;">
+                <div class="tittle" style="padding: 7px; border-bottom: 1px solid rgb(238 238 238);">Tính năng đặc biệt</div>
+                <ul style="list-style: none; margin-left: 15px; padding-left: 5px;">
+                    <li>Tất cả</li>
+                    <li>Hỗ trợ 5G</li>
+                    <li>Kháng nước, kháng bụi</li>
+                    <li>Sạc không dây</li>
+                    <li>Nhận diện khuôn mặt</li>
+                    <li>Bảo mật vân tay</li>
+                </ul>
+            </div>
+            <div style="border: 1px solid rgb(238 238 238); margin-bottom: 10px;">
+                <div class="tittle" style="padding: 7px; border-bottom: 1px solid rgb(238 238 238);">Tần số quét</div>
+                <ul style="list-style: none; margin-left: 15px; padding-left: 5px;">
+                    <li>Tất cả</li>
+                    <li>60Hz</li>
+                    <li>90Hz</li>
+                </ul>
+            </div>
+            <div style="border: 1px solid rgb(238 238 238); margin-bottom: 10px;">
+                <div class="tittle" style="padding: 7px; border-bottom: 1px solid rgb(238 238 238);">Tính năng camera</div>
+                <ul style="list-style: none; margin-left: 15px; padding-left: 5px;">
+                    <li>Tất cả</li>
+                    <li>Chụp góc rộng</li>
+                    <li>Chụp xóa phông</li>
+                </ul>
+            </div>
+
+
+
+
+        </div>
+        <div class="col-17 col-m-20 col-s-20 right-side">
+            <div class="tittle-box" style="box-shadow:none;">
+                <h3>Điện thoại iPhone</h3>
+            </div>
+            <div class="brand-category">
+                <button>iPhone 12 Series</button>
+                <button>iPhone 11 Series</button>
+                <button>iPhone X | XR</button>
+                <button>iPhone SE 2020</button>
+            </div>
+            <div class="sort">
+                <div style="float: left;">
+                    <ul class="sort-group">
+                        <span style="padding-right: 6px;">Chọn mức giá: </span>
+                        <li onclick="getInRange('9-12')" id="912">9 - 12 triệu</li>
+                        <li onclick="getInRange('12-15')" id="1215">12 - 15 triệu</li>
+                        <li onclick="getInRange('15-18')" id="1518">15 - 18 triệu</li>
+                        <li onclick="getInRange('18-21')" id="1821">18 - 21 triệu</li>
+                        <li onclick="getInRange('21-')" id="21">trên 21 triệu</li>
+                    </ul>
+                </div>
+                <div style="float: right;">
+                    <ul class="sort-by">
+                        <span style="padding-right: 6px;">Sắp xếp theo: </span>
+                        <li id="sort-high" onclick="sortProduct('sort-high')">Giá cao</li>
+                        <li id="sort-low" onclick="sortProduct('sort-low')">Giá thấp</li>
+                        <li id="special" style="text-decoration: underline;" onclick="reLoad('Apple.html')">Nổi bật</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="list-product" style="box-shadow:none;">
+                <div class="shadow"></div>
+                <div class="product col-4 col-m-5 col-s-10" dir-paginate="Product in Products|itemsPerPage:pageSize" total-items="totalCount" id="{{Product.ProductID}}">
+                    <div class="product-img">
+                        <img src="~/assets/images/{{Product.ImageName}}" alt="">
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">{{Product.ProductName}}</h4>
+                        <div class="price">
+                            <p class="special-price">{{Product.NewPrice}}</p>
+                            <p class="old-price">{{Product.OldPrice}}</p>
+                        </div>
+                        <div class="offers">
+                            <p>{{Product.PromotionName}}</p>
+                        </div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <p>1 đánh giá</p>
+                        </div>
+                        <div class="product-btn">
+                            <a href="ProductDetail.html"><button class="buy-btn">Mua ngay</button></a>
+                            <a href=""><button class="compare">So sánh</button></a>
+                        </div>
+                    </div>
+                </div>
+                <dir-pagination-controls max-size="maxSize"
+                                         direction-links="true"
+                                         boundary-links="true"
+                                         on-page-change="GetProductsbyBrandPagination(newPageNumber)">
+                </dir-pagination-controls>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section js{
+    <script src="~/Scripts/dirPagination.js"></script>
+    <script src="~/assets/Javascript/sort.js"></script>
+    <script src="~/Scripts/Controller/ProductController.js"></script>
+}
