@@ -22,6 +22,12 @@ namespace CellphoneS.Controllers
         {
             return View();
         }
+
+        public ActionResult ProductDetail()
+        {
+            return View();
+        }
+
         [HttpGet]
         public JsonResult GetProductsBrand(string categoryID, string brandID)
         {

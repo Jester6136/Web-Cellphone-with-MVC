@@ -9,6 +9,12 @@ namespace BUS
     public class ProductBUS : IProductBUS
     {
         ProductDAO productDAO = new ProductDAO();
+
+        public List<ProductDetailsADMIN> GetProductDetailsADMIN(string productID, string memoryID)
+        {
+            return productDAO.GetProductDetailsADMIN(productID, memoryID);
+        }
+
         public List<Product> GetProductsBrand(string categoryID, string brandID)
         {
             return productDAO.GetProductsBrand(categoryID, brandID);
@@ -17,6 +23,14 @@ namespace BUS
         public ListProduct GetProductsbyBrandPagination(int pageIndex, int pageSize, string productName, string categoryID, string brandID)
         {
             return productDAO.GetProductsbyBrandPagination(pageIndex, pageSize, productName, categoryID, brandID);
+        }
+        public List<ProductAdmin> GetProductsByCategory(string categoryID)
+        {
+            return productDAO.GetProductsByCategory(categoryID);
+        }
+        public void InsertProductMemosColors(ProductMemosColors p)
+        {
+            productDAO.InsertProductMemosColors(p);
         }
     }
 }

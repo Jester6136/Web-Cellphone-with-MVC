@@ -1,11 +1,11 @@
-﻿/// <reference path="../angular.min.js" />
+﻿
+/// <reference path="../angular.min.js" />
 var myapp = angular.module('MyApp', ['angularUtils.directives.dirPagination']);//khai baso module
 
 myapp.controller("menuController", function ($scope, $http, $rootScope) {
     $http.get("/Home/GetMenu").then(function Success(res) {
-        var table = JSON.parse(res.data);
+        var table = JSON.parse(JSON.parse(res.data));
         var keys = Object.keys(table);
-
         ids = keys.map(function (key) {
             var dollar = key.indexOf('$')+1
             return key.slice(dollar,-40)

@@ -1,0 +1,476 @@
+﻿
+@section css{
+    <link rel="stylesheet" href="~/Areas/Administrator/assets/vendor/select2/select2.css" />
+    <link rel="stylesheet" href="~/Areas/Administrator/assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" />
+    <link rel="stylesheet" href="~/Areas/Administrator/assets/stylesheets/popup.css">
+    <link rel="stylesheet" href="~/Areas/Administrator/assets/vendor/toast/toastr.min.css" />
+
+}
+
+
+<section role="main" class="content-body">
+    <header class="page-header">
+        <h2>Quản lý thành viên</h2>
+
+        <div class="right-wrapper pull-right">
+            <ol class="breadcrumbs">
+                <li>
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                    </a>
+                </li>
+                <li><span>Quản lý thành viên</span></li>
+            </ol>
+
+            <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+        </div>
+    </header>
+
+    <!-- start: page -->
+    <section class="panel">
+        <header class="panel-heading">
+            <div class="panel-actions">
+                <a href="#" class="fa fa-caret-down"></a>
+                <a href="#" class="fa fa-times"></a>
+            </div>
+            <h2 class="panel-title">Danh sách thành viên</h2>
+        </header>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="mb-md">
+                        <button id="addToTablee" class="btn btn-primary">Thêm thành viên <i class="fa fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped mb-none" id="datatable-details">
+                @*Test*@
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Mã thành viên</th>
+                        <th>Họ tên</th>
+                        <th>Giới tính</th>
+                        <th>Ngày sinh</th>
+
+                        <th>Vị trí</th>
+                        <th>Điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th style="width:90px;">Tác vụ</th>
+                    </tr>
+                </thead>
+
+
+
+
+
+
+                @*Origin*@
+                @*<thead>
+                        <tr>
+                            <th>Mã thành viên</th>
+                            <th>Họ tên</th>
+                            <th>Giới tính</th>
+                            <th>Ngày sinh</th>
+
+                            <th>Vị trí</th>
+                            <th>Điện thoại</th>
+                            <th>Địa chỉ</th>
+                            <th>Tác vụ</th>
+                        </tr>
+                    </thead>*@
+                @*<tbody id="ttable">
+                        <tr class="gradeA">
+                                <td>TV000001</td>
+                                <td>Phạm Văn Thành</td>
+                                <td>Nam</td>
+                                <td>28/08/1987</td>
+
+                                <td>Chủ Sở Hữu</td>
+                                <td>0984881273</td>
+                                <td>Thanh Bình, TP Hải Dương</td>
+                                <td class="actions">
+                                    <a href="#" class="on-default editt-row"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="on-default removeMember"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="gradeA">
+                                <td>TV000002</td>
+                                <td>Nguyễn Hữu Lộc</td>
+                                <td>Nam</td>
+                                <td>19/05/1988</td>
+
+                                <td>Thành viên tích cực</td>
+                                <td>0983794729</td>
+                                <td>Thanh Hà, Hải Dương</td>
+                                <td class="actions">
+                                    <a href="#" class="on-default editt-row"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="on-default removeMember"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="gradeA">
+                                <td>TV000003</td>
+                                <td>Nguyễn Văn Đa</td>
+                                <td>Nam</td>
+                                <td>04/01/1999</td>
+
+                                <td>Thành viên</td>
+                                <td>0973894712</td>
+                                <td>Kim Thành, Hải Dương</td>
+                                <td class="actions">
+                                    <a href="#" class="on-default editt-row"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="on-default removeMember"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="gradeA">
+                                <td>TV000004</td>
+                                <td>Ngô Mai Anh</td>
+                                <td>Nữ</td>
+                                <td>12/11/1992</td>
+
+                                <td>Thành viên</td>
+                                <td>0976943500</td>
+                                <td>Thanh Miện, Hải Dương</td>
+                                <td class="actions">
+                                    <a href="#" class="on-default editt-row"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="on-default removeMember"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="gradeA">
+                                <td>TV000005</td>
+                                <td>Lê Trọng Đại</td>
+                                <td>Nam</td>
+                                <td>12/12/1990</td>
+
+                                <td>Thành viên</td>
+                                <td>0982909488</td>
+                                <td>Đông Hưng, Thái Bình</td>
+                                <td class="actions">
+                                    <a href="#" class="on-default editt-row"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="on-default removeMember"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="gradeA">
+                                <td>TV000006</td>
+                                <td>Nguyễn Việt Anh</td>
+                                <td>Nam</td>
+                                <td>10/09/1982</td>
+
+                                <td>Thành viên</td>
+                                <td>0933988492</td>
+                                <td>Ân Thi, Hưng Yên</td>
+                                <td class="actions">
+                                    <a href="#" class="on-default editt-row"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="on-default removeMember"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="gradeA">
+                                <td>TV000007</td>
+                                <td>Vũ Khắc Tiệp</td>
+                                <td>Nam</td>
+                                <td>19/03/1984</td>
+
+                                <td>Thành viên</td>
+                                <td>0933988492</td>
+                                <td>Thanh Trì, Hà Nội</td>
+                                <td class="actions">
+                                    <a href="#" class="on-default editt-row"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="on-default removeMember"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                    </tbody>*@
+            </table>
+        </div>
+    </section>
+    <!-- end: page -->
+</section>
+			</div>
+		</section>
+
+
+
+    <div id="dialog" class="modal-block mfp-hide">
+        <section class="panel">
+            <header class="panel-heading">
+                <h2 class="panel-title">Bạn có chắc chắn muốn xóa?</h2>
+            </header>
+            <div class="panel-body">
+                <div class="modal-wrapper">
+                    <div class="modal-text">
+                        <p>Bạn có chắc chắn muốn xóa thành viên này?</p>
+                    </div>
+                </div>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button id="dialogConfirm" class="btn btn-primary">Xác nhận</button>
+                        <button id="dialogCancel" class="btn btn-default">Đóng</button>
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </div>
+
+    <div class="mx-auto workform" id="dialogAddmember" style="display: none;">
+        <div class="row d-flex justify-content-center">
+            <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+                <div class="card">
+                    <h3 class="text-center mb-4">Nhập thông tin</h3>
+                    <form class="form-card" id="frmadd">
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Mã thành viên<span class="text-danger"> *</span></label> <input type="text" id="fid" name="fid" placeholder="Nhập mã" required readonly> </div>
+                            <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Họ tên<span class="text-danger"> *</span></label> <input type="text" id="fname" name="fname" placeholder="Nhập Tên" required> </div>
+                            <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Mã người giới thiệu<span class="text-danger"> *</span></label> <input type="text" id="referralID" name="referralID" placeholder="" minlength="8" maxlength="8"> </div>
+                        </div>
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Giới tính<span class="text-danger"> *</span></label>
+                                <select id="gender" class="selectpicker" style="border: 1px solid #ccc; font-size: 14px;">
+                                    <option>Nam</option>
+                                    <option>Nữ</option>
+                                    <option>Khác</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Ngày sinh<span class="text-danger"> *</span></label>
+                                <input data-plugin-datepicker name="dob" id="dob" autocomplete="off" required>
+                            </div>
+                            <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Địa chỉ<span class="text-danger"> *</span></label> <input type="text" id="address" name="address" placeholder="" required> </div>
+
+                        </div>
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Email<span class="text-danger"> *</span></label> <input type="email" id="email" name="email" placeholder=""> </div>
+
+                            <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Số điện thoại<span class="text-danger"> *</span></label> <input type="text" id="phone" name="phone" placeholder="" number="true" required minlength="10" maxlength="10"> </div>
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Số CMND<span class="text-danger"> *</span></label> <input type="text" id="IDCard" name="IDCard" placeholder="" required minlength="10" maxlength="13">
+                            </div>
+                        </div>
+                        <div class="row justify-content-between text-left">
+
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Nơi cấp<span class="text-danger"> *</span></label> <input type="text" id="IDCard_PlaceIssue" name="IDCard_PlaceIssue" placeholder="" required>
+                            </div>
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Ngày cấp<span class="text-danger"> *</span></label>
+                                <input id="IDCard_DateIssue" data-plugin-datepicker name="IDCard_DateIssue" autocomplete="off" required>
+                            </div>
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Mật khẩu<span class="text-danger"> *</span></label>
+                                <input type="text" id="password" name="password" placeholder="" required>
+                            </div>
+
+                        </div>
+
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Vị trí<span class="text-danger"> *</span></label>
+                                <select id="position" class="selectpicker" style="border: 1px solid #ccc; font-size: 14px;">
+                                    <option>Thành viên</option>
+                                    <option>Thành viên 300đ</option>
+                                    <option>Thành viên tích cực</option>
+                                    <option>Thành viên đạt chuẩn</option>
+                                    <option>Trưởng nhóm</option>
+                                    <option>Trưởng phòng dự bị</option>
+                                    <option>Trưởng phòng</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Chức vụ<span class="text-danger"> *</span></label>
+                                <select id="role" class="selectpicker" style="border: 1px solid #ccc; font-size: 14px;">
+                                    <option>Thành viên</option>
+                                    <option>Quản trị viên</option>
+                                    <option>Chủ sở hữu</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Active<span class="text-danger"> *</span></label>
+                                <select class="selectpicker" style="border: 1px solid #ccc; font-size: 14px;" id="isactive">
+                                    <option>Đã active</option>
+                                    <option>Chưa active</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-12 flex-column d-flex">
+                                <label class="form-control-label px-3">Ảnh<span class="text-danger"> *</span></label>
+                                <div class="fileupload fileupload-new" data-provides="fileupload" style="width: 100%;">
+                                    <div class="input-append">
+                                        <div class="uneditable-input">
+                                            <span class="fileupload-preview"></span>
+                                        </div>
+                                        <span class="btn btn-default btn-file">
+                                            <span class="fileupload-exists">Thay đổi</span>
+                                            <span class="fileupload-new">Chọn ảnh</span>
+                                            <input id="avatar" type="file" accept="image/*">
+                                        </span>
+                                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <footer class="" style="padding: 15px 0px;">
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <button id="dialogConfirm" class="btn btn-primary  save" type="button">Lưu</button>
+                                    <button id="dialogCancel" class="btn btn-default  exit" type="button">Đóng</button>
+                                </div>
+                            </div>
+                        </footer>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mx-auto workform" id="dialogEditmember" style="display: none;">
+        <div class="row d-flex justify-content-center">
+            <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+                <div class="card">
+                    <h3 class="text-center mb-4">Nhập thông tin</h3>
+                    <form class="form-card" id="frmedit">
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Mã thành viên<span class="text-danger"> *</span></label> <input type="text" id="efid" name="efid" placeholder="Nhập mã" required readonly> </div>
+                            <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Họ tên<span class="text-danger"> *</span></label> <input type="text" id="efname" name="efname" placeholder="Nhập Tên" required> </div>
+                            <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Mã người giới thiệu<span class="text-danger"> *</span></label> <input type="text" id="ereferralID" name="ereferralID" placeholder="" minlength="8" maxlength="8"> </div>
+                        </div>
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Giới tính<span class="text-danger"> *</span></label>
+                                <select id="egender" class="selectpicker" style="border: 1px solid #ccc; font-size: 14px;">
+                                    <option>Nam</option>
+                                    <option>Nữ</option>
+                                    <option>Khác</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Ngày sinh<span class="text-danger"> *</span></label>
+                                <input data-plugin-datepicker name="OrderDate" id="edob" required autocomplete="off">
+                            </div>
+                            <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Địa chỉ<span class="text-danger"> *</span></label> <input type="text" id="eaddress" name="eaddress" placeholder="" required> </div>
+
+                        </div>
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Email<span class="text-danger"> *</span></label> <input type="email" required id="eemail" name="eemail" placeholder=""> </div>
+
+                            <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Số điện thoại<span class="text-danger"> *</span></label> <input type="text" id="ephone" name="ephone" placeholder="" required minlength="10" maxlength="10"> </div>
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Số CMND<span class="text-danger"> *</span></label> <input type="text" id="eIDCard" name="eIDCard" placeholder="" required minlength="10" maxlength="13">
+                            </div>
+                        </div>
+                        <div class="row justify-content-between text-left">
+
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Nơi cấp<span class="text-danger"> *</span></label> <input type="text" id="eIDCard_PlaceIssue" name="eIDCard_PlaceIssue" placeholder="" required>
+                            </div>
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Ngày cấp<span class="text-danger"> *</span></label>
+                                <input id="eIDCard_DateIssue" data-plugin-datepicker name="OrderDate" autocomplete="off" required>
+                            </div>
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Mật khẩu<span class="text-danger"> *</span></label>
+                                <input type="text" id="epassword" name="epassword" placeholder="" required minlength="8">
+                            </div>
+
+                        </div>
+
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Vị trí<span class="text-danger"> *</span></label>
+                                <select id="eposition" class="selectpicker" style="border: 1px solid #ccc; font-size: 14px;">
+                                    <option>Thành viên</option>
+                                    <option>Thành viên 300đ</option>
+                                    <option>Thành viên tích cực</option>
+                                    <option>Thành viên đạt chuẩn</option>
+                                    <option>Trưởng nhóm</option>
+                                    <option>Trưởng phòng dự bị</option>
+                                    <option>Trưởng phòng</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Chức vụ<span class="text-danger"> *</span></label>
+                                <select id="erole" class="selectpicker" style="border: 1px solid #ccc; font-size: 14px;">
+                                    <option>Thành viên</option>
+                                    <option>Quản trị viên</option>
+                                    <option>Chủ sở hữu</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Active<span class="text-danger"> *</span></label>
+                                <select class="selectpicker" style="border: 1px solid #ccc; font-size: 14px;" id="eisactive">
+                                    <option>Đã active</option>
+                                    <option>Chưa active</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-12 flex-column d-flex">
+                                <label class="form-control-label px-3">Ảnh<span class="text-danger"> *</span></label>
+                                <div class="fileupload fileupload-new" data-provides="fileupload" style="width: 100%;">
+                                    <div class="input-append">
+                                        <div class="uneditable-input">
+                                            <span class="fileupload-preview"></span>
+                                        </div>
+                                        <span class="btn btn-default btn-file">
+                                            <span class="fileupload-exists">Thay đổi</span>
+                                            <span class="fileupload-new">Chọn ảnh</span>
+                                            <input id="eavatar" type="file" accept="image/*">
+                                        </span>
+                                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <footer class="" style="padding: 15px 0px;">
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <button id="edialogConfirm" class="btn btn-primary  save" type="button">Lưu</button>
+                                    <button id="edialogCancel" class="btn btn-default  exit" type="button">Đóng</button>
+                                </div>
+                            </div>
+                        </footer>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dialog2" class="modal-block mfp-hide">
+        <section class="panel">
+            <header class="panel-heading">
+                <h2 class="panel-title">Bạn có chắc chắn muốn khởi tại mật khẩu</h2>
+            </header>
+            <div class="panel-body">
+                <div class="modal-wrapper">
+                    <div class="modal-text">
+                        <p id="sur">Bạn có chắc chắn muốn khởi tạo lại mật khẩu cho thành viên <span></span> không?</p>
+                    </div>
+                </div>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button id="dialogConfirm1" class="btn btn-primary">Xác nhận</button>
+                        <button id="dialogCancel1" class="btn btn-default">Đóng</button>
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </div>
+
+    @section js{
+        <script src="~/Areas/Administrator/assets/vendor/select2/select2.js"></script>
+        <script src="~/Areas/Administrator/assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
+        <script src="~/Areas/Administrator/assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
+        <script src="~/Areas/Administrator/assets/javascripts/tables/product.with.detail.edit.js"></script>
+    }
+

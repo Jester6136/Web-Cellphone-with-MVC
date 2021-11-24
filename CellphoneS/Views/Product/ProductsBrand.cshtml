@@ -1,4 +1,7 @@
-﻿
+﻿@section css{
+
+    <link href="~/assets/css/test.css" rel="stylesheet" />
+}
 <div class="brand" ng-controller="ProductsBrand">
     <div class="container" style="background-color: white; display: table;">
         <div class="breadcrumbs" style="padding-top: 10px; padding-bottom: 20px;">
@@ -114,15 +117,15 @@
                 <div style="float: right;">
                     <ul class="sort-by">
                         <span style="padding-right: 6px;">Sắp xếp theo: </span>
-                        <li id="sort-high" onclick="sortProduct('sort-high')">Giá cao</li>
-                        <li id="sort-low" onclick="sortProduct('sort-low')">Giá thấp</li>
+                        <li id="sort-high" ng-click="option(0)">Giá cao</li>
+                        <li id="sort-low" ng-click="option(1)">Giá thấp</li>
                         <li id="special" style="text-decoration: underline;" onclick="reLoad('Apple.html')">Nổi bật</li>
                     </ul>
                 </div>
             </div>
             <div class="list-product" style="box-shadow:none;">
                 <div class="shadow"></div>
-                <div class="product col-4 col-m-5 col-s-10" dir-paginate="Product in Products|itemsPerPage:pageSize" total-items="totalCount" id="{{Product.ProductID}}">
+                <div class="product col-4 col-m-5 col-s-10" dir-paginate="Product in Products|orderBy:sortcolumn:reverse|itemsPerPage:pageSize" current-page="pageIndex" total-items="totalCount" id="{{Product.ProductID}}">
                     <div class="product-img">
                         <img src="~/assets/images/{{Product.ImageName}}" alt="">
                     </div>
@@ -152,7 +155,7 @@
                 <dir-pagination-controls max-size="maxSize"
                                          direction-links="true"
                                          boundary-links="true"
-                                         on-page-change="GetProductsbyBrandPagination(newPageNumber)">
+                                         on-page-change="GetProductsbyBrandPagination(newPageNumber)" class="pagination">
                 </dir-pagination-controls>
 
             </div>

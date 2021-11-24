@@ -37,6 +37,20 @@ myapp.controller("ProductsBrand", function ($http, $scope, $rootScope) {
     
     $scope.GetProductsbyBrandPagination($scope.pageIndex)
 
+    $scope.sortcolumn = "NewPrice";
+    $scope.reverse = true;
+    $scope.direct = "Ascending";
+
+    $scope.option = function (d) {
+        if (d == '0') {
+            $scope.reverse = false;
+            $scope.direct = "Decreasing"
+        }
+        else {
+            $scope.reverse = true;
+            $scope.direct = "Ascending";
+        }
+    }
 
     //$http({
     //    method: 'get',
@@ -52,6 +66,24 @@ myapp.controller("ProductsBrand", function ($http, $scope, $rootScope) {
     //    $scope.Products = res.data;
     //    console.log($scope.Products[0]);
     //}, function Error(res) { })
+})
+
+myapp.controller('productssort', function ($scope, $rootScope, $http) {
+    //Begin setting
+    $scope.sortcolumn = "NewPrice";
+    $scope.reverse = true;
+    $scope.direct = "Ascending";
+
+    $scope.option = function (d) {
+        if (d = '0') {
+            $scope.reverse = false;
+            $scope.direct = "Decreasing"
+        }
+        else {
+            $scope.reverse = true;
+            $scope.direct = "Ascending";
+        }
+    }
 })
 
 

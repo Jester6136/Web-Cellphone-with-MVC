@@ -1,0 +1,17 @@
+﻿.pagination {
+    margin: 40px 0px;
+    display: flex;
+    list-style: none;
+    width: 100%;
+    justify-content: center;
+}
+
+    .pagination ul li {
+        font-weight: 800;
+        font-size: 15px;
+        border: 1px #c1c1c1 solid;
+        padding: 6px 12px;
+        line-height: 1.42857143;
+        text-decoration: none;
+        background-color: #fff;
+    }
