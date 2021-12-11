@@ -5,13 +5,17 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using BUS;
+using OBJ;
 using Newtonsoft.Json.Linq;
+using System.Web.Security;
+using Newtonsoft.Json;
 
 namespace CellphoneS.Controllers
 {
     public class HomeController : Controller
     {
         MenuBUS menuBUS = new MenuBUS();
+        CustomerBUS customerBUS = new CustomerBUS();
         public ActionResult Index()
         {
             return View();
@@ -36,6 +40,58 @@ namespace CellphoneS.Controllers
         {
             string menu = menuBUS.GetMenu();
             return Json(menu, JsonRequestBehavior.AllowGet);
+        }
+
+        //[HttpGet]
+        //public JsonResult Login(string email,string password)
+        //{
+        //    Customer c = customerBUS.CheckCustomer(email, password);
+        //    if (c == null)
+        //    {
+        //        return Json(c, JsonRequestBehavior.AllowGet);
+        //    }
+        //    else
+        //    {
+        //        FormsAuthentication.SetAuthCookie(email, false);
+        //        return Json(c, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
+        //[HttpPost]
+        //public ActionResult Logout()
+        //{
+        //    FormsAuthentication.SignOut();
+        //    return RedirectToAction("Login");
+        //}
+
+        public JsonResult Logout()
+        {
+            Session.Remove("login");
+            Session.Remove("khach");
+            return Json(0, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult Login(string us, string pw, bool rp)
+        {
+            Customer u = customerBUS.CheckCustomer(us, pw);
+
+            if (u == null)   //DN ko thành công
+            {
+                Session["login"] = "0";
+                Session["khach"] = "";
+            }
+            else             //DN thành công
+            {
+                if (!rp)
+                {
+                    u.Password = "";
+                }
+                Session["login"] = "1";
+                Session["khach"] = JsonConvert.SerializeObject(u);
+                Session.Timeout = 360;
+            }
+            //return Json(new { login = "1", Khach = u }, JsonRequestBehavior.AllowGet);
+            return Json(new { login = Session["login"], Khach = u }, JsonRequestBehavior.AllowGet);
+
         }
     }
 }

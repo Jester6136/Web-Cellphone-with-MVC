@@ -27,12 +27,18 @@ namespace CellphoneS.Areas.Administrator.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetProductDetailsADMIN(string productID,string memoryID)
+        public JsonResult GetMemoriesDetailADMIN(string productID)
         {
-            List<ProductDetailsADMIN> productdetails = productBUS.GetProductDetailsADMIN(productID,memoryID);
+            List<MemoriesDetailADMIN> productdetails = productBUS.GetMemoriesDetailADMIN(productID);
             return Json(productdetails, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public JsonResult GetProductDetailsADMIN(string memoryID)
+        {
+            List<ProductDetailsADMIN> productdetails = productBUS.GetProductDetailsADMIN(memoryID);
+            return Json(productdetails, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult UploadImage()
         {
             List<string> l = new List<string>();
@@ -54,8 +60,14 @@ namespace CellphoneS.Areas.Administrator.Controllers
         public JsonResult InsertProduct(string p)
         {
             ProductMemosColors obj = JsonConvert.DeserializeObject<ProductMemosColors>(p);
-            productBUS.InsertProductMemosColors(obj);
+            //productBUS.InsertProductMemosColors(obj);
             return Json(obj, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetNextProductID()
+        {
+            return Json(JObject.Parse(productBUS.GetNextProductID()), JsonRequestBehavior.AllowGet);
         }
     }
 }

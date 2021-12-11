@@ -7,6 +7,7 @@
     <link rel="icon" href="https://cdn.cellphones.com.vn/media/favicon/default/logo-cps.png">
     <link rel="stylesheet" href="~/assets/fasm/css/all.css">
     <link rel="stylesheet" href="~/assets/css/style.css" type="text/css">
+    <link rel="stylesheet" href="~/Areas/Administrator/assets/vendor/toast/toastr.min.css" />
     @RenderSection("css", false)
 </head>
 <body ng-app="MyApp">
@@ -16,6 +17,30 @@
         <div>
             <div class="behind"></div>
             @RenderBody()
+        </div>
+        <div class="mainn">
+            <i class="fas fa-times" id="c" style="position: relative; font-size: 30px; float: right; padding: 10px 18px;cursor:pointer;"></i>
+            <input type="checkbox" checked id="chk" aria-hidden="true">
+
+            <div class="signup">
+                <form>
+                    <label for="chk" aria-hidden="true">Sign up</label>
+                    <input type="text" name="txt" placeholder="User name" required="">
+                    <input type="email" name="email" placeholder="Email" required="">
+                    <input type="password" name="pswd" placeholder="Password" required="">
+                    <button id="signup">Sign up</button>
+                </form>
+            </div>
+
+            <div class="login">
+                <form>
+                    <label for="chk" aria-hidden="true">Login</label>
+                    <input type="email" name="email" placeholder="Email" id="mail" ng-model="mail" required="">
+                    <input type="password" name="pswd" placeholder="Password" id="pass" ng-model="pass" required="">
+                    <span><input type="checkbox" ng-model="remember" class="input form-control" id="check_remember" /> <p> Remember me</p></span>
+                    <button id="login1" ng-click="Login(mail,pass,remember)">Login</button>
+                </form>
+            </div>
         </div>
     </div>
     </div>
@@ -69,6 +94,7 @@
     <script src="~/Scripts/angular.min.js"></script>
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/dirPagination.js"></script>
+    <script src="~/Areas/Administrator/assets/vendor/toast/toastr.min.js"></script>
     <script src="~/assets/Javascript/main.js"></script>
     <script src="~/assets/Javascript/quantity.js"></script>
     <script src="~/assets/Javascript/find.js"></script>

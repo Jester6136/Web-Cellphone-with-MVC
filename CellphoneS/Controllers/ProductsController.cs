@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 
 namespace CellphoneS.Controllers
 {
-    public class ProductController : Controller
+    public class ProductsController : Controller
     {
         ProductBUS productBUS = new ProductBUS();
         // GET: Product
@@ -40,6 +40,12 @@ namespace CellphoneS.Controllers
         {
             ListProduct listProduct = productBUS.GetProductsbyBrandPagination(pageIndex, pageSize, productName, categoryID, brandID);
             return Json(listProduct, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetProductDetail(string productID)
+        {
+            return Json(productBUS.GetProductDetail(productID), JsonRequestBehavior.AllowGet);
         }
     }
 }

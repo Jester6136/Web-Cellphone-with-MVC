@@ -1921,7 +1921,7 @@ div#orther-payment:after {
 }
 
 .line {
-    margin-top: 15px;
+    margin-top: -10px;
     height: 2px;
     background: #f2f2f2;
 }
@@ -1932,7 +1932,7 @@ img.big-img {
     width: 90%;
 }
 
-.small-pic {
+/*.small-pic {
     width: 100%;
     margin-top: 8px;
 }
@@ -1941,7 +1941,7 @@ img.big-img {
         cursor: pointer;
         border: 1px solid #f2f2f2ab;
         width: calc(88% / 3);
-    }
+    }*/
 
 img.small-banner {
     margin-top: 20px;
@@ -2314,3 +2314,116 @@ button.buy-btn a {
             text-decoration: none;
         }
 /* End Brand */
+
+
+/*Begin Login*/
+.mainn span {
+    display: flex;
+    align-items: center;
+}
+
+    .mainn span input {
+        margin: 10px 10px 10px 51px;
+        padding: 0px;
+        width: 56px;
+    }
+
+    .mainn span p {
+        margin: 0px;
+    }
+.mainn {
+    display: none;
+    top: 72px;
+    z-index: 10;
+    position: absolute;
+    width: 350px;
+    height: 500px;
+    background: red;
+    overflow: hidden;
+    /* background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/ cover; */
+    border-radius: 10px;
+    box-shadow: 5px 20px 50px #000;
+    right: calc(50% - 175px);
+}
+
+    .mainn #chk {
+        display: none;
+    }
+
+    .mainn .signup {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .mainn label {
+        color: #fff;
+        font-size: 2.3em;
+        justify-content: center;
+        display: flex;
+        margin: 60px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: .5s ease-in-out;
+    }
+
+    .mainn input {
+        width: 60%;
+        height: 20px;
+        background: #e0dede;
+        justify-content: center;
+        display: flex;
+        margin: 20px auto;
+        padding: 10px;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+    }
+
+    .mainn button {
+        width: 60%;
+        height: 40px;
+        margin: 10px auto;
+        justify-content: center;
+        display: block;
+        color: #fff;
+        background: #573b8a;
+        font-size: 1em;
+        font-weight: bold;
+        margin-top: 20px;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        transition: .2s ease-in;
+        cursor: pointer;
+    }
+
+        .mainn button:hover {
+            background: #6d44b8;
+        }
+
+    .mainn .login {
+        height: 460px;
+        background: #eee;
+        border-radius: 60% / 10%;
+        transform: translateY(-180px);
+        transition: .3s ease-in-out;
+    }
+
+        .mainn .login label {
+            color: #573b8a;
+            transform: scale(.6);
+        }
+
+    .mainn #chk:checked ~ .login {
+        transform: translateY(-500px);
+    }
+
+        .mainn #chk:checked ~ .login label {
+            transform: scale(1);
+        }
+
+    .mainn #chk:checked ~ .signup label {
+        transform: scale(.6);
+    }
+/*End Login*/

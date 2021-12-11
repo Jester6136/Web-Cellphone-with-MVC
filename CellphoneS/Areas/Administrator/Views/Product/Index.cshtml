@@ -57,7 +57,6 @@
                         <th></th>
                         <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
-                        <th>Bộ nhớ</th>
                         <th>Loại SP</th>
                         <th>Hãng SP</th>
                         <th>Ảnh chính</th>
@@ -71,7 +70,6 @@
                         </td>
                         <td>{{Product.ProductID}}</td>
                         <td>{{Product.ProductName}}</td>
-                        <td>{{Product.MemoryName}}</td>
                         <td>{{Product.CategoryName}}</td>
                         <td>{{Product.BrandName}}</td>
                         <td class="image_index"><img src="~/assets/images/{{Product.ImageName}}" alt="Alternate Text" /></td>
@@ -86,8 +84,6 @@
     </section>
     <!-- end: page -->
 </section>
-			</div>
-		</section>
 
 
 
@@ -155,7 +151,7 @@
                             </div>
                             <div class="form-group col-sm-4 flex-column d-flex">
                                 <label class="form-control-label px-3">Ảnh chính<span class="text-danger"> *</span></label>
-                                <div class="fileupload fileupload-new" data-provides="fileupload" style="width: 100%;">
+                                <div class="fileupload fileupload-new" data-provides="fileupload" style="width: 100%;" id="impressive_image">
                                     <div class="input-append">
                                         <div class="uneditable-input">
                                             <span class="fileupload-preview" id="imageName" ></span>
@@ -202,7 +198,7 @@
                                         <div class="col-md-12 text-right">
                                             <button id="dialogAddmemory" class="btn btn-primary  save" style="height: 55.2px; width: 80px; " type="button" ng-click="addMemory(Memory)">Thêm</button>
                                         </div>
-                                    </div>
+                                    </div>  
 
                                 </div>
                             </div>
@@ -279,8 +275,8 @@
                                         <td>{{Color.Quantity}}</td>
                                         <td class="image_index"><img src="~/assets/images/{{Color.ColorImage}}" /></td>
                                         <td class="actions" style="width:65px;">
-                                            <a href="#" class="on-default editMemory"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" class="on-default removeMemory"><i class="fa fa-trash-o"></i></a>
+                                            <a href="#" class="on-default editColor"><i class="fa fa-pencil"></i></a>
+                                            <a href="#" class="on-default removeColor"><i class="fa fa-trash-o"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -445,7 +441,7 @@
     <script src="~/Areas/Administrator/assets/vendor/select2/select2.js"></script>
     <script src="~/Areas/Administrator/assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
     <script src="~/Areas/Administrator/assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
-
+    <script src="~/Areas/Administrator/assets/vendor/toast/toastr.min.js"></script>
     <script src="~/Scripts/ng-file-upload.min.js"></script>
     @*<script src="~/Areas/Administrator/assets/javascripts/tables/colorprice.datatables.editable.js"></script>*@
 

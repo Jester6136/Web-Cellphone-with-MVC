@@ -8,13 +8,13 @@ myapp.controller("ProductsBrand", function ($http, $scope, $rootScope) {
     $scope.totalCount = 0;
 
     $scope.pageIndex = 1;
-    $scope.pageSize = 5;
+    $scope.pageSize = 10;
     $scope.SearchName = '';
 
     $scope.GetProductsbyBrandPagination = function (index) {
         $http({
             method: 'get',
-            url: '/Product/GetProductsbyBrandPagination',
+            url: '/Products/GetProductsbyBrandPagination',
             params: {
                 pageIndex: $scope.pageIndex,
                 pageSize: $scope.pageSize,
@@ -52,6 +52,11 @@ myapp.controller("ProductsBrand", function ($http, $scope, $rootScope) {
         }
     }
 
+    $scope.getProduct = function (pd) {
+        localStorage.setItem('product', JSON.stringify(pd))
+    }
+
+
     //$http({
     //    method: 'get',
     //    url: '/Product/GetProductsBrand',
@@ -67,6 +72,7 @@ myapp.controller("ProductsBrand", function ($http, $scope, $rootScope) {
     //    console.log($scope.Products[0]);
     //}, function Error(res) { })
 })
+
 
 myapp.controller('productssort', function ($scope, $rootScope, $http) {
     //Begin setting
@@ -85,6 +91,8 @@ myapp.controller('productssort', function ($scope, $rootScope, $http) {
         }
     }
 })
+
+
 
 
 const numberFormat = new Intl.NumberFormat('vi-VN', {

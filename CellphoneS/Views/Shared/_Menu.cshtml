@@ -15,7 +15,7 @@
                                         <i class="fas fa-angle-right"></i>  
                                     </a>
                                     <ul>
-                                        <a href="/Product/ProductsBrand" ng-click="PushBrand(brand.CategoryID,brand.BrandID)" style="width: 100%;" ng-repeat="brand in item.brands" value="{{brand.BrandID}}"><li style="width:100%;">{{brand.BrandName}}</li></a>
+                                        <a href="/Products/ProductsBrand" ng-click="PushBrand(brand.CategoryID,brand.BrandID)" style="width: 100%;" ng-repeat="brand in item.brands" value="{{brand.BrandID}}"><li style="width:100%;">{{brand.BrandName}}</li></a>
                                     </ul>
                                 </li>
                                 <li>
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="logo">
-                    <a href="Index.html">
+                    <a href="/Home/Index">
                         <img src="~/assets/images/logo.PNG" alt="">
                     </a>
                 </div>
@@ -48,7 +48,7 @@
                 <input type="text" placeholder="Bạn cần tìm gì? ">
                 <button onclick="findProduct()"><i class="fas fa-search"></i></button>
             </div>
-            <div class="box-about">
+            <div class="box-about" ng-controller="loginController">
                 <a href="">
                     <div class="box-about-1">
                         <div class="box-about-icon">
@@ -72,12 +72,12 @@
                     </div>
                 </a>
                 <a href="">
-                    <div class="box-about-2">
+                    <div class="box-about-2" id="login">
                         <div class="box-about-icon">
                             <i class="fad fa-user-circle"></i>
                         </div>
                         <div class="box-about-context">
-                            <p>Smember</p>
+                            <p>{{Status}}</p>
                         </div>
                     </div>
                 </a>
@@ -85,3 +85,4 @@
         </div>
     </div>
 </div>
+

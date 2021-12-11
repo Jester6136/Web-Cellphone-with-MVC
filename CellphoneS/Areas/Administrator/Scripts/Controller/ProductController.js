@@ -1,6 +1,17 @@
 ﻿
 var myapp = angular.module('Myapp', ['angularUtils.directives.dirPagination','ngFileUpload']);//khai baso module
 
+myapp.factory('Product_ROM', function () {
+    return {
+        ProductID : "",
+        ProductName : "",
+        CategoryName : "",
+        BrandName : "",
+        ImageName : ""
+    };
+});
+
+
 var checkUnderined = function (o) {
     return typeof(o) == "undefined";
 }
@@ -49,7 +60,18 @@ var ConvertToJsonString = function (Object) {
                 }`
 }
 //ProductDetailController
-myapp.controller("productsController", function ($http, $scope, $rootScope,Upload) {
+myapp.controller("productsController", function ($http, $scope, $rootScope, Upload, Product_ROM) {
+    $('#dialogConfirmNewProduct').click(function () {
+        console.log(Product_ROM);
+        $scope.Products.push(Product_ROM);
+        Product_ROM.ProductID = "";
+        Product_ROM.ProductName = "";
+        Product_ROM.CategoryName = "";
+        Product_ROM.BrandName = "";
+        Product_ROM.ImageName = "";
+        $scope.$apply();
+    })
+
     $rootScope.NewProduct = [];
     $http({
         method: 'get',
@@ -70,6 +92,8 @@ var GetProductDetail = function (details) {
     for (var i = 0; i < details.length; i++) {
         detailContents.push(`
                         <tr>
+                            <th></th>
+                            <th></th>
                             <td>${details[i].ColorID}</td>
                             <td>${details[i].ColorName}</td>
                             <td><img class="image_index" src="/assets/images/`+ details[i].ColorImage + `"/></td>
@@ -80,19 +104,62 @@ var GetProductDetail = function (details) {
     }
     return detailContents;
 }
+var GetMemoriesDetail = function (details) {
+    var detailContents = [];
+    for (var i = 0; i < details.length; i++) {
+        detailContents.push(`
+                        <tr class="${details[i].ProductID}">
+                            <td class=" text-center">
+                                <i data-toggle="sub" class="fa fa-plus-square-o text-primary h5 m-none" id="" style="cursor: pointer;color:#a94629 !important;"></i>
+                            </td>
+                            <td>${details[i].MemoryID}</td>
+                            <td>${details[i].MemoryName}</td>
+                            <td>${details[i].Description}</td>
+                        </tr>
+                    `);
+    }
+    return detailContents;
+}
+//Cilck extend detail
 $('#datatable-details').on('click', 'i[data-toggle]', function () {
     var $this = $(this),
         tr = $(this).closest('tr'),
         productID = $(this).parent().siblings()[0].textContent,
-        memoryName = $(this).parent().siblings()[2].textContent;
-    if ($this[0].dataset.toggle!='has') {
+        memoryID = $(this).parent().siblings()[0].textContent;
+
+    if ($this[0].dataset.toggle =='') {
         $this.removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
-        $.get(`https://localhost:44364/Administrator/Product/GetProductDetailsADMIN?productID=${productID}&memoryID=${memoryName}`)
+        $.get(`https://localhost:44364/Administrator/Product/GetMemoriesDetailADMIN?productID=${productID}`)
             .done(function (details) {
-                var data = GetProductDetail(details);
-                var subtable = `<tr><td colspan="8"><table class="table mb-none">
+                var data = GetMemoriesDetail(details);
+                var subtable = `<tr><td colspan="7"><table class="table mb-none">
                         <thead>
                             <tr>
+                                <th></th>
+                                <th>Mã bộ nhớ</th>
+                                <th>Loại bộ nhớ</th>
+                                <th>Mô tả</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.join(' ')}
+                        </tbody>
+                    </table></td></tr>`
+                tr.after(subtable);
+            })
+        $this[0].dataset.toggle = 'has';
+        
+    }
+    else if ($this[0].dataset.toggle == 'sub') {
+        $this.removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+        $.get(`https://localhost:44364/Administrator/Product/GetProductDetailsADMIN?memoryID=${memoryID}}`)
+            .done(function (details) {
+                var data = GetProductDetail(details);
+                var subtable = `<tr><td colspan="7"><table class="table mb-none">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
                                 <th>Mã màu</th>
                                 <th>Màu</th>
                                 <th>Ảnh</th>
@@ -106,9 +173,14 @@ $('#datatable-details').on('click', 'i[data-toggle]', function () {
                     </table></td></tr>`
                 tr.after(subtable);
             })
-        $this[0].dataset.toggle = 'has';
-        
-    } else {
+        $this[0].dataset.toggle = 'has2';
+    }
+    else if ($this[0].dataset.toggle == 'has2') {
+        $this.removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+        $this[0].dataset.toggle = 'sub';
+        tr.next().remove();
+    }
+    else if ($this[0].dataset.toggle == 'has') {
         $this.removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
         $this[0].dataset.toggle = '';
         tr.next().remove();
@@ -117,9 +189,7 @@ $('#datatable-details').on('click', 'i[data-toggle]', function () {
 
 //////////////////////Addproduct////////////////////////////
 //1
-myapp.controller("addProductController", function ($http, $scope, $rootScope, Upload) {
-    var CategoryName = $('#category')[0].value;
-    var BrandName = $('#brand')[0].value;
+myapp.controller("addProductController", function ($http, $scope, $rootScope, Upload, Product_ROM) {
 
     $scope.UploadFiles = function (file) {
         $scope.SelectedFiles = file;
@@ -128,9 +198,9 @@ myapp.controller("addProductController", function ($http, $scope, $rootScope, Up
                 url: 'UploadImage',
                 data: { files: $scope.SelectedFiles }
             }).then(function Success(res) {
-                alert('Upload success');
+                toastr.success("Thêm ảnh thành công");
             }, function Error(res) {
-                alert('Upload fail');
+                toastr.error("Thêm ảnh thất bại");
             })
         }
     }
@@ -140,39 +210,53 @@ myapp.controller("addProductController", function ($http, $scope, $rootScope, Up
         $rootScope.NewProduct.ProductName = $rootScope.NewProduct.ProductName;
         $rootScope.NewProduct.DateRelease = $('#DateRelease').val();
         $rootScope.NewProduct.ImageName = $('#imageName')[0].textContent;
-        $rootScope.NewProduct.CategoryName = CategoryName;
-        $rootScope.NewProduct.BrandName = BrandName;
+        $rootScope.NewProduct.CategoryName = $rootScope.NewProduct.CategoryName;
+        $rootScope.NewProduct.BrandName = $rootScope.NewProduct.BrandName;
         $rootScope.NewProduct.Memories = $rootScope.Memories;
-        console.log($rootScope.NewProduct)
-        console.log(ConvertToJsonString($rootScope.NewProduct).replace(/\s/g, ''))
 
         $http({
             method: 'POST',
             url: 'InsertProduct',
             data: { p: ConvertToJsonString($rootScope.NewProduct).replace(/\s/g,'') }
         }).then(function Success(res) {
-            console.log('ngu2');
             console.log(res);
+            //Set new to current view
+            Product_ROM.ProductID = $('#fid').val();
+            Product_ROM.ProductName = $rootScope.NewProduct.ProductName;
+            Product_ROM.CategoryName = $rootScope.NewProduct.CategoryName;
+            Product_ROM.BrandName = $rootScope.NewProduct.BrandName;
+            Product_ROM.ImageName = $('#imageName')[0].textContent;
+            toastr.success("Thêm thông tin sản phẩm thành công");
+            //Reset value table
+            $rootScope.NewProduct.ImageName = '';
+            $rootScope.NewProduct = [];
+            $rootScope.Memories = [];
+            $rootScope.Colors = [];
+            $rootScope.num = 0;
+            $('#imageName').text('')
+            $('#impressive_image').removeClass('fileupload-exists').addClass('fileupload-new');
+            //Reset ID
+            $.get(`GetNextProductID`).done(
+                function (res) {
+                    $('#fid').val(res);
+                }
+            )
         }, function Error(res) {
-            console.log(res);
+            toastr.error("Thêm thông tin thất bại");
         })
-
-        $rootScope.NewProduct.ImageName = '';
     })
 
 })
 
 //2
 myapp.controller("memoryTable", function ($http, $scope, $rootScope) {
-
-    $scope.num = 0;
-    $scope.Memories = [];
+    $rootScope.num = 0;
     $rootScope.Memories = [];
 
 
     $scope.addMemory = function (Memory) {
-        $scope.num = $scope.num + 1;
-        $scope.Memory.Number = $scope.num;
+        $rootScope.num = $rootScope.num + 1;
+        $scope.Memory.Number = $rootScope.num;
         $scope.Memory.MemoryName = $scope.Memory.MemoryName;
         if (checkUnderined($scope.Memory.Description)) {
             $scope.Memory.Description = "";
@@ -180,11 +264,18 @@ myapp.controller("memoryTable", function ($http, $scope, $rootScope) {
         else
             $scope.Memory.Description = $scope.Memory.Description;
         $scope.Memory.Colors = [];
-        $scope.Memories.push(Memory);
-
         $rootScope.Memories.push(Memory);
         $scope.Memory = {};
     }
+
+    $(document).on('click', '.removeMemory', function () {
+        var nodes = Array.prototype.slice.call(document.getElementById('ttable2').children),
+            liRef = $(this).parent().parent()[0];
+        var id = nodes.indexOf(liRef);
+        $rootScope.Memories.splice($rootScope.Memories.indexOf(id), 1);
+        $rootScope.$apply();
+    });
+
 
     $('#ttable2').on('click', 'tr', function () {
         if ($(this).hasClass('selected')) {
@@ -196,22 +287,23 @@ myapp.controller("memoryTable", function ($http, $scope, $rootScope) {
             });
             $(this).addClass('selected');
 
-            var id = parseInt($('#ttable2 tr.selected').children()[0].textContent) - 1;
+            var nodes = Array.prototype.slice.call(document.getElementById('ttable2').children),
+                liRef = document.getElementsByClassName('selected')[0];
+            var id = nodes.indexOf(liRef);
             var Colors = $rootScope.Memories[id].Colors;
-            $scope.Colors = Colors;
+            $rootScope.Colors = Colors;
             $scope.$apply();
+            $rootScope.$apply();
         }
     });
 
 
-
     $scope.addColor = function (Color) {
-        var id = parseInt($('#ttable2 tr.selected').children()[0].textContent) - 1;
         $scope.Color.ColorName = $scope.Color.ColorName;
         $scope.Color.Price = $scope.Color.Price;
         $scope.Color.ColorImage = $('#colorImage')[0].textContent;
         $scope.Color.Quantity = $scope.Color.Quantity;
-        $scope.Colors.push(Color);
+        $rootScope.Colors.push(Color);
         $scope.Color = {};
         $scope.Color.ColorImage = '';
     }
@@ -225,10 +317,15 @@ myapp.controller("memoryTable", function ($http, $scope, $rootScope) {
 
 
 $('#addToTablee').click(function () {
+    $.get(`GetNextProductID`).done(
+        function (res) {
+            $('#fid').val(res);
+        }
+    )
+
     $('#dialogAddproduct').show();
+
 });
-
-
 $('.exit').click(function () {
     $('.workform').hide();
 });

@@ -1,4 +1,36 @@
-﻿<div class="product-detail">
+﻿@section css{
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+        .swiper-slide img {
+            cursor: pointer;
+            border: 1px solid #f2f2f2ab;
+            width: calc(278% / 3);
+        }
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+    </style>
+}
+<div class="product-detail" ng-controller="ProductDetailController">
     <div class="container">
         <div class="breadcrumbs">
             <ul>
@@ -7,25 +39,21 @@
                     <i class="far fa-chevron-right"></i>
                 </li>
                 <li class="category1">
-                    <a href="">Điện thoại</a>
+                    <a href="">{{Product.CategoryName}}</a>
                     <i class="far fa-chevron-right"></i>
                 </li>
                 <li class="category14">
-                    <a href="">Apple</a>
-                    <i class="far fa-chevron-right"></i>
-                </li>
-                <li class="category145">
-                    <a href="">iPhone 12 Series</a>
+                    <a href="">{{Product.BrandName}}</a>
                     <i class="far fa-chevron-right"></i>
                 </li>
                 <li class="product-name" id="1">
-                    <b href="">iPhone 12 Pro Max I Chính hãng VN/A</b>
+                    <b href="">{{Product.ProductName}}</b>
                 </li>
             </ul>
         </div>
         <div class="main-detail">
             <div class="top-view">
-                <h2>iPhone 12 Pro Max I Chính hãng VN/A </h2>
+                <h2>{{Product.ProductName}}</h2>
                 <div class="rating">
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
@@ -39,13 +67,18 @@
             <div class="product-essential">
                 <div style="margin-top: 15px;"></div>
                 <div class="col-7 col-m-9" style="text-align: center;">
-                    <img class="big-img" src="assets/images/iphone-12-pro-max_1__7 (1).jpg" alt="">
+                    <img class="big-img" src="~/assets/images/{{BigImage}}" alt="">
                     <div class="small-pic">
-                        <img src="assets/images/iphone-12-pro-max_1__7 (1).jpg" alt="">
-                        <img src="assets/images/iphone-12-pro-max_3__7.jpg" alt="">
-                        <img src="assets/images/iphone-12-pro-max_4__7.jpg" alt="">
+                        <div class="swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide" ng-repeat="color in Colors" ng-click="selectBigImage(color)"><img src="~/assets/images/{{color.ColorImage}}" alt="" ></div>
+                            </div>
+                            <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                        </div>
+                        
                     </div>
-                    <img src="assets/images/400x100_COVID1.png" class="small-banner" alt="">
+                    <img src="~/assets/images/400x100_COVID1.png" class="small-banner" alt="">
                 </div>
 
                 <div class="col-7 col-m-11">
@@ -67,41 +100,21 @@
                     </div>
                     <div>
                         <div class="price">
-                            <p class="special-price">29.790.000&nbsp;₫</p>
-                            <p class="old-price"><span>giá niêm yết:</span> 33.990.000&nbsp;₫</p>
+                            <p class="special-price">{{NewPrice}}</p>
+                            <p class="old-price"><span>giá niêm yết:</span>{{OldPrice}}</p>
                         </div>
                     </div>
                     <div class="config">
-                        <div class="box-option-config active">
-                            <p>512GB</p>
-                            <p class="special-price">37.990.000&nbsp;₫</p>
-                        </div>
-                        <div class="box-option-config">
-                            <p>256GB</p>
-                            <p class="special-price">31.990.000&nbsp;₫</p>
-                        </div>
-                        <div class="box-option-config">
-                            <p>128GB</p>
-                            <p class="special-price">29.290.000&nbsp;₫</p>
+                        <div class="box-option-config {{memo.active}}" ng-repeat="memo in Product.Memories" ng-click="selectColor(memo)">
+                            <p class="memoname">{{memo.MemoryName}}</p>
+                            <p class="special-price">{{memo.OldPrice}}</p>
                         </div>
                     </div>
-                    <h5 style="    margin: 10px 0px 10px 0px;">Chọn màu để xem giá và chi nhánh có hàng</h5>
+                    <h5 style="margin: 10px 0px 10px 0px;">Chọn màu để xem giá và chi nhánh có hàng</h5>
                     <div class="color">
-                        <div class="box-option-color active">
-                            <p>Bạc</p>
-                            <p class="special-price">37.990.000&nbsp;₫</p>
-                        </div>
-                        <div class="box-option-color">
-                            <p>Vàng</p>
-                            <p class="special-price">38.390.000&nbsp;₫</p>
-                        </div>
-                        <div class="box-option-color">
-                            <p>Xám</p>
-                            <p class="special-price">37.990.000&nbsp;₫</p>
-                        </div>
-                        <div class="box-option-color">
-                            <p>Xanh dương</p>
-                            <p class="special-price">38.390.000&nbsp;₫</p>
+                        <div class="box-option-color" ng-repeat="color in Colors" ng-click="selectColorPrice(color)">
+                            <p>{{color.ColorName}}</p>
+                            <p class="special-price">{{color.Price}}</p>
                         </div>
                     </div>
                     <div class="product-try">
@@ -120,7 +133,7 @@
                     <p style="margin: 8px 0px;font-size: 12px;">*Giảm thêm tới 1% cho <a href="" style="color: #e0052b;">thành viên Smember</a></p>
                     <p style="margin: 8px 0px;font-size: 12px;">*<a href="" style="color: #e0052b;">Thu cũ đổi mới -&nbsp;&nbsp;Trợ giá tốt nhất</a></p>
                     <div class="order-online buynow">
-                        <button>
+                        <button ng-click="addCart(SelectedProduct)">
                             <h4>MUA NGAY<span>(Giao hàng tận nơi - Giá tốt - An toàn)</span></h4>
                         </button>
                     </div>
@@ -131,7 +144,7 @@
                         </button>
                     </div>
                     <div class="order installmentbycard">
-                        <button>
+                        <button>    
                             <h4>TRẢ GÓP QUA THẺ<span>(Visa, Master, JCB)</span></h4>
                         </button>
                     </div>
@@ -144,7 +157,7 @@
                     <div class="box">
                         <h4 style="text-transform: uppercase;">HIỆN <span>12</span> CỬA HÀNG CÓ SẴN SẢN PHẨM</h4>
                     </div>
-                    <img src="assets/images/banner1.png" class="small-banner full_width" alt="">
+                    <img src="~/assets/images/banner1.png" class="small-banner full_width" alt="">
                     <h5>Tình trạng</h5>
                     <p>
                         Máy mới 100% , chính hãng Apple Việt Nam.
@@ -291,3 +304,26 @@
     </div>
 </div>
 			</div>
+@section js{
+    <script src="~/Scripts/dirPagination.js"></script>
+    <script src="~/Scripts/Controller/ProductDetailController.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="~/assets/Javascript/productdetail.js"></script>
+    <script>
+        var swiper = new Swiper('.swiper', {
+            slidesPerView: 3,
+            spaceBetween: 20,
+            slidesPerGroup: 3,
+            loop: false,
+            loopFillGroupWithBlank: false,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+}

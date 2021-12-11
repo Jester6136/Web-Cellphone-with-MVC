@@ -52,4 +52,72 @@ myapp.controller("menuController", function ($scope, $http, $rootScope) {
         alert(err);
     })
 })
+myapp.controller("loginController", function ($rootScope, $window, $http, $scope) {
+    if (sessionStorage.getItem('login') != null) {
+        var islogin = sessionStorage.getItem('login');
+        var user = JSON.parse(sessionStorage.getItem('khach'));
+    }
+    if (islogin == "1") {
+        $rootScope.Status = user.CustomerName;
+    }
+    else {
+        $rootScope.Status='Login'
+    }
+    $('#c').click(function () {
+        $('.mainn').hide();
+    })  
+    $rootScope.close = "";
+    $rootScope.Khach = null;
+    $rootScope.remember = false;
+    $rootScope.userName = "";
+    $rootScope.Logout = function () {
+        document.getElementById('dropdownMenuButton').style.display = 'none';
+        location.reload();
+    };  
+    $rootScope.Login = function (un, pw, rp) {
+        $http({
+            method: 'get',
+            params: {
+                us: un,
+                pw: pw,
+                rp: rp
+            },
+            url:'/Home/Login'
+        }).then(function (d) {
+            if (d.data.login == "0") {
+                $rootScope.Status = "Login"
+            }
+            else {
+                console.log(d.data.Khach)
+                sessionStorage.setItem("login", d.data.login);
+                sessionStorage.setItem("khach", JSON.stringify(d.data.Khach));
+                console.log(d);
+                $rootScope.Status = d.data.Khach.CustomerName
+                $('.mainn').hide();
+            }
+        }, function error(e) {
+            sessionStorage.setItem("login", "0");
+            sessionStorage.setItem("khach", "");
+        });
+    }
+    $rootScope.LInLout = function () {
+        if ($rootScope.lInOut == "SignIn") {
+            $rootScope.Finout = "#myModal";
+        }
+        else {
+            $rootScope.Finout = "";
+            $rootScope.Logout();
+        }
+    }
 
+   $('#login').click(function () {
+       $('.mainn').show();
+   })
+
+    $('#login1').click(function () {
+        var email = $('#mail').val();
+        var pass = $('#pass').val();
+        console.log(email, pass);
+    })
+
+})

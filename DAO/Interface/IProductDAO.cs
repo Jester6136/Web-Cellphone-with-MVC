@@ -13,7 +13,7 @@ namespace DAO.Interface
 
         List<ProductAdmin> GetProductsByCategory(string categoryID);
 
-        List<ProductDetailsADMIN> GetProductDetailsADMIN(string productID, string memoryID);
+        List<ProductDetailsADMIN> GetProductDetailsADMIN(string memoryID);
 
         void InsertProductMemosColors(ProductMemosColors p);
     }
