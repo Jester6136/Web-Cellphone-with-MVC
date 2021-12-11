@@ -32,5 +32,11 @@ namespace DAO
             string spName = "InsertCart";
             dh.StoreReaders(spName, cart.UserID,cart.ColorID,cart.MemoryID,cart.ProductID);
         }
+
+        public void DeleteCart(string cartID)
+        {
+            string spName = "DeleteCart";
+            dh.StoreReaders(spName, cartID);
+        }
     }
 }

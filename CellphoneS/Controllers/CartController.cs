@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using OBJ;
 using BUS;
+using Newtonsoft.Json;
 
 namespace CellphoneS.Controllers
 {
@@ -17,13 +18,19 @@ namespace CellphoneS.Controllers
             return View();
         }
         [HttpPost]
-        public void InsertCart(Cart cart)
+        public void InsertCart(string cart)
         {
-            cartBUS.InsertCart(cart);
+            Cart obj = JsonConvert.DeserializeObject<Cart>(cart);
+            cartBUS.InsertCart(obj);
         }
-        public string GetCart(string userID)
+        public JsonResult GetCart(string userID)
         {
-            return cartBUS.GetCart(userID);
+            return Json(cartBUS.GetCart(userID),JsonRequestBehavior.AllowGet);
         }
+        public void DeleteCart(string cartID)
+        {
+            cartBUS.DeleteCart(cartID);
+        }
+
     }
 }

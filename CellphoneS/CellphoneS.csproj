@@ -130,6 +130,7 @@
     <Compile Include="Areas\Administrator\Controllers\PromotionController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -11517,6 +11518,7 @@
     <Content Include="assets\images\mbp-silver-gallery3-202011-removebg-preview-dt.webp" />
     <Content Include="assets\images\xiaomi-mi-11-lite-5g-2_10.webp" />
     <Content Include="Areas\Administrator\Scripts\Controller\ProductController.js" />
+    <Content Include="Scripts\Controller\CartController.js" />
     <Content Include="Scripts\Controller\MenuController.js" />
     <Content Include="Scripts\Controller\ProductDetailController.js" />
     <Content Include="Scripts\Controller\ProductsController.js" />
@@ -12580,12 +12582,13 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\ProductsBrand.cshtml" />
     <Content Include="Views\Products\ProductDetail.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Administrator\Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Cart\" />
+    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

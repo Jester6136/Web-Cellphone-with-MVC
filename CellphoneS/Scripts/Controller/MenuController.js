@@ -88,12 +88,11 @@ myapp.controller("loginController", function ($rootScope, $window, $http, $scope
                 $rootScope.Status = "Login"
             }
             else {
-                console.log(d.data.Khach)
                 sessionStorage.setItem("login", d.data.login);
                 sessionStorage.setItem("khach", JSON.stringify(d.data.Khach));
-                console.log(d);
                 $rootScope.Status = d.data.Khach.CustomerName
                 $('.mainn').hide();
+                location.reload();
             }
         }, function error(e) {
             sessionStorage.setItem("login", "0");
@@ -117,7 +116,6 @@ myapp.controller("loginController", function ($rootScope, $window, $http, $scope
     $('#login1').click(function () {
         var email = $('#mail').val();
         var pass = $('#pass').val();
-        console.log(email, pass);
     })
 
 })

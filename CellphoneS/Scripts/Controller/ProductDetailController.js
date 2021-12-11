@@ -1,5 +1,4 @@
 ﻿myapp.controller('ProductDetailController', function ($http, $scope, $rootScope) {
-    $rootScope.Cart = []
     var ROM_product = JSON.parse(localStorage.getItem('product'));
     console.log(ROM_product)
     //Set begin price
@@ -126,15 +125,16 @@
             $scope.tocart.ColorID = SelectedProduct.ColorID;
             $scope.tocart.MemoryID = SelectedProduct.MemoryID;
             $scope.tocart.ProductID = SelectedProduct.ProductID;
-            console.log($scope.tocart);
+            var newcartJson = ConvertToJsonString($scope.tocart).replace(/\s/g, '');
+            console.log(newcartJson);
             //If have
             if (typeof SelectedProduct.ColorID !== 'undefined') {
-                $rootScope.Cart.push(SelectedProduct);
                 $http({
                     method: 'post',
-                    params: { cart: JSON.stringify($scope.tocart) },
+                    params: { cart: newcartJson },
                     url: "/Cart/InsertCart"
                 }).then(function success(res) {
+                    window.location.href = '/Cart/Index';
                     console.log(res);
                 }, function error(res) {
                     console.log(res);
@@ -157,4 +157,17 @@ const numberFormat = new Intl.NumberFormat('vi-VN', {
     currency: 'VND',
 });
 
+var ConvertToJsonString = function (Object) {
+    var UserID = Object.UserID
+    var ColorID = Object.ColorID;
+    var MemoryID = Object.MemoryID;
+    var ProductID = Object.ProductID;
+
+    var base = ``;
+    return `{"UserID": "` + UserID + `",
+            "ColorID": "` + ColorID + `",
+            "MemoryID": "` + MemoryID + `",
+            "ProductID": "` + ProductID + `"
+            }`
+}
 

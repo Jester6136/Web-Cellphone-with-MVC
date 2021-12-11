@@ -1555,6 +1555,8 @@ button.compare {
     display: flex;
     justify-content: space-between;
     padding: 20px 10px 10px 10px;
+    min-height: 166px;
+    max-height: 190px;
 }
 
 .box-price {
@@ -1583,7 +1585,7 @@ p.Price-old {
     width: 26%;
 }
 
-button#left {
+button.l {
     border: 1px solid #b1aaaa;
     background: white;
     height: 35px;
@@ -1593,7 +1595,7 @@ button#left {
     cursor: pointer;
 }
 
-input#quantity {
+input.q {
     border: 1px solid #b1aaaa;
     width: 37px;
     height: 35px;
@@ -1601,7 +1603,7 @@ input#quantity {
     cursor: pointer;
 }
 
-button#right {
+button.r {
     border: 1px solid #b1aaaa;
     background: white;
     height: 35px;
@@ -1630,7 +1632,7 @@ div#line {
     width: 300px;
 }
 
-input#quantity[type="text"] {
+input.q[type="text"] {
     text-align: center;
 }
 
@@ -1867,13 +1869,14 @@ div#orther-payment:after {
     height: 50%;
 }
 
-.delete {
-    cursor: pointer;
+.delele-product {
     position: absolute;
-    bottom: 10px;
-    font-size: 14px;
-    color: #878787;
+    z-index: 10;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
 }
+
 /*END Shopping Cart*/
 
 
@@ -2331,6 +2334,7 @@ button.buy-btn a {
     .mainn span p {
         margin: 0px;
     }
+
 .mainn {
     display: none;
     top: 72px;

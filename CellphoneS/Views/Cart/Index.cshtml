@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="shopping-cart" ng-controller="cartController">
+    <div class="container-cart">
+        <div class="cart-top">
+            <a href="/Home/Index" class="buymore">
+                Mua thêm sản phẩm khác
+            </a>
+            <p>Giỏ hàng của bạn</p>
+        </div>
+        <div class="cart-content">
+            <div id="content">
+                <div class="product-in-cart" ng-repeat="product in Cart">
+                    <i class="fas fa-times delele-product" ng-click="delete(product)"></i>
+                    <img src="~/assets/images/{{product.ColorImage}}" alt="">
+                    <div class="imfor">
+                        <h4 class="product-name">{{product.ProductName}} | {{product.MemoryName}}</h4>
+                        <p>Màu: <span>{{product.ColorName}}</span></p>
+                    </div>
+                    <div class="box-price">
+                        <p class="Price-now">{{product.NewPrice}}</p>
+                        <p class="Price-old">{{product.OldPrice}}</p>
+                        <div class="Quantity">
+                            <button class="btn-left l" ng-click="sub(product)">-</button>
+                            <input type="text" class="val q" value="{{product.Quantity}}" readonly>
+                            <button class="btn-right r" ng-click="add(product)">+</button>
+                        </div>
+                    </div>
+                    <div id="line"></div>
+                </div>
+            </div>
+            <div class="discount">
+                <p>- Nhập mã khuyến mại:&nbsp;</p><input type="text"><button>Áp dụng</button>
+                <div id="line"></div>
+            </div>
+            <div class="sum-price">
+                <div id="discount">
+                    <p>- Mã giảm giá: <span>0&nbsp;₫</span></p>
+                </div>
+                <div id="sum-price">
+                    <p>- Tổng tiền: <span>{{sumPriceShow}}</span></p>
+                </div>
+                <div id="line"></div>
+                <p id="status">* Miễn phí giao hàng</p>
+            </div>
+            <div class="buy-detail">
+                <h4>Thông tin mua hàng</h4>
+                <div class="tt">
+                    <div class="name">
+                        <p>Họ và tên (Bắt buộc)</p>
+                        <input type="text"  ng-model="Order.CustomerName">
+                    </div>
+                    <div class="phone">
+                        <p>Số điện thoại đặt hàng (bắt buộc)</p>
+                        <input type="text"  ng-model="Order.Phone">
+                    </div>
+                    <div style="clear: both;"></div>
+                    <div class="note">
+                        <p>Địa chỉ giao hàng</p>
+                        <input type="text"  ng-model="Order.DeliveryAddress">
+                    </div>
+                </div>
+
+                <h4>- Vui lòng chọn cách nhận hàng</h4>
+                <div class="ship">
+                    <input name="shipping-method" type="radio" id="giao-hang-1">
+                    <label for="giao-hang-1">Giữ tại cửa hàng</label>
+                    <input name="shipping-method" type="radio" id="giao-hang-2">
+                    <label for="giao-hang-2">Giao hàng tận nơi</label>
+                </div>
+                <div class="order">
+                    <button ng-click="addOrder()">
+                        <h4>ĐẶT HÀNG THANH TOÁN SAU <span>(Trả tiền tại nhà hoặc tại cửa hàng)</span></h4>
+                    </button>
+                </div>
+                <div id="orther-payment"><span>HOẶC CHỌN THANH TOÁN ONLINE</span></div>
+                <input name="order-method" type="radio" id="order1" checked="checked">
+                <label for="order1">Cổng thanh toán ZaloPay</label>
+                <input name="order-method" type="radio" id="order2">
+                <label for="order2">Thanh toán qua VNPAY</label>
+                <div class="order-online">
+                    <button>
+                        <h4>Thanh toán sau<span>(Thẻ Visa, Master, ATM, Momo...)</span></h4>
+                    </button>
+                </div>
+                <input name="agree-method" type="checkbox" id="agree" checked="checked">
+                <label for="agree"><a href="">Bằng cách đặt hàng, bạn đồng ý với điều khoản sử dụng của CellphoneS.</a></label>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section js{
+    <script src="~/Scripts/Controller/CartController.js"></script>
+    <script src="~/assets/Javascript/cart.js"></script>
+}

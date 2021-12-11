@@ -20,5 +20,9 @@ namespace BUS
         {
             cartDAO.InsertCart(cart);
         }
+        public void DeleteCart(string cartID)
+        {
+            cartDAO.DeleteCart(cartID);
+        }
     }
 }
