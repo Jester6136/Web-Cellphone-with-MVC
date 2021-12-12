@@ -11,7 +11,7 @@
     @RenderSection("css", false)
 </head>
 <body ng-app="MyApp">
-    <div class="wrapper">
+    <div class="wrapper" ng-controller="menuController">
         <div class="overlay"></div>
         @Html.Partial("_Menu")
         <div>

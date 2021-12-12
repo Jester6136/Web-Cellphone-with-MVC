@@ -190,6 +190,48 @@ $('#datatable-details').on('click', 'i[data-toggle]', function () {
 //////////////////////Addproduct////////////////////////////
 //1
 myapp.controller("addProductController", function ($http, $scope, $rootScope, Upload, Product_ROM) {
+    $http({
+        method: 'get',
+        url: '/Product/GetCategoryBrandADMIN'
+    }).then(function success(res) {
+        var CategoryBrand = JSON.parse(JSON.parse(res.data));
+        $scope.Categories = [];
+        $scope.Brands = [];
+        for (var i = 0; i < CategoryBrand.length; i++) {
+            var Catetory = [];
+            var category_tmp = CategoryBrand[i];
+            Catetory.STT = i;
+            Catetory.CategoryID = category_tmp.CategoryID;
+            Catetory.CategoryName = category_tmp.CategoryName;
+            $scope.Categories.push(Catetory);
+            $scope.Categories[i].Brands = [];
+            if (category_tmp.Brands != null) {
+                for (var j = 0; j < category_tmp.Brands.length; j++) {
+                    var Brand = []
+                    var brand_tmp = category_tmp.Brands[j];
+                    Brand.BrandID = brand_tmp.BrandID;
+                    Brand.BrandName = brand_tmp.BrandName;
+                    $scope.Categories[i].Brands.push(Brand);
+                }
+            }
+        }
+        $scope.CategoryBrand = CategoryBrand;
+        $rootScope.NewProduct.CategoryName = $scope.CategoryBrand[0].CategoryName;
+        $scope.Brands = $scope.Categories[0].Brands;
+        $rootScope.NewProduct.BrandName = $scope.Brands[0].BrandName;
+        console.log(CategoryBrand);
+    }, function error(res) {
+        console.log(res);
+    })
+
+
+    $('.category').on('change', function (e) {
+        var optionSelected = $("option:selected", this);
+        var index = optionSelected[0].className;
+        $scope.Brands = $scope.Categories[index].Brands;
+        $rootScope.NewProduct.BrandName = $scope.Brands[0].BrandName;
+    });
+
 
     $scope.UploadFiles = function (file) {
         $scope.SelectedFiles = file;
@@ -236,7 +278,7 @@ myapp.controller("addProductController", function ($http, $scope, $rootScope, Up
             $('#imageName').text('')
             $('#impressive_image').removeClass('fileupload-exists').addClass('fileupload-new');
             //Reset ID
-            $.get(`GetNextProductID`).done(
+            $.get(`/Product/GetNextProductID`).done(
                 function (res) {
                     $('#fid').val(res);
                 }

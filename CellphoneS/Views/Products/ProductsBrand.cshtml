@@ -147,14 +147,14 @@
                             <p>1 đánh giá</p>
                         </div>
                         <div class="product-btn">
-                            <a href="ProductDetail"><button class="buy-btn" ng-click="getProduct(Product)">Mua ngay</button></a>
+                            <a href="/Products/ProductDetail"><button class="buy-btn" ng-click="getProduct(Product)">Mua ngay</button></a>
                             <a href=""><button class="compare">So sánh</button></a>
                         </div>
                     </div>
                 </div>
                 <dir-pagination-controls max-size="maxSize"
                                          direction-links="true"
-                                         boundary-links="true"
+                                         boundary-links="true"  
                                          on-page-change="GetProductsbyBrandPagination(newPageNumber)" class="pagination">
                 </dir-pagination-controls>
 

@@ -67,7 +67,13 @@ namespace CellphoneS.Areas.Administrator.Controllers
         [HttpGet]
         public JsonResult GetNextProductID()
         {
-            return Json(JObject.Parse(productBUS.GetNextProductID()), JsonRequestBehavior.AllowGet);
+            return Json(productBUS.GetNextProductID(), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetCategoryBrandADMIN()
+        {
+            return Json(productBUS.GetCategoryBrandADMIN(), JsonRequestBehavior.AllowGet);
         }
     }
 }

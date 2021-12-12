@@ -171,6 +171,34 @@ namespace DAO
             string ListMemories = JsonConvert.SerializeObject(p.Memories);
             SqlDataReader dr = dh.StoreReaders(spName, p.ProductName,p.CategoryName,p.BrandName,p.DateRelease,ListMemories);
         }
+        public string GetTop15ProductPhone()
+        {
+            string spName = "GetTop15ProductPhone";
+            SqlDataReader dr=  dh.StoreReaders(spName);
+            string result = "";
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    result = dr[0].ToString();
+                }
+            }
+            return result;
+        }
+        public string GetCategoryBrandADMIN()
+        {
+            string spName = "GetCategoryBrandADMIN";
+            SqlDataReader dr = dh.StoreReaders(spName);
+            string result = "";
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    result = dr[0].ToString();
+                }
+            }
+            return result;
+        }
 
         private string NextColorID(string id)
         {

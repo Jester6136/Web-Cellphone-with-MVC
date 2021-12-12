@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BUS.Interface;
 using DAO;
+using DAO.Interface;
 using OBJ;
 
 namespace BUS
@@ -44,6 +45,14 @@ namespace BUS
         public string GetProductDetail(string productID)
         {
             return productDAO.GetProductDetail(productID);
+        }
+        public string GetTop15ProductPhone()
+        {
+            return productDAO.GetTop15ProductPhone();
+        }
+        public string GetCategoryBrandADMIN()
+        {
+            return productDAO.GetCategoryBrandADMIN();
         }
     }
 }

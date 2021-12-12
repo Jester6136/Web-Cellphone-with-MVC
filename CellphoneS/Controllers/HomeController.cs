@@ -16,6 +16,7 @@ namespace CellphoneS.Controllers
     {
         MenuBUS menuBUS = new MenuBUS();
         CustomerBUS customerBUS = new CustomerBUS();
+        ProductBUS productBUS = new ProductBUS();
         public ActionResult Index()
         {
             return View();
@@ -42,27 +43,12 @@ namespace CellphoneS.Controllers
             return Json(menu, JsonRequestBehavior.AllowGet);
         }
 
-        //[HttpGet]
-        //public JsonResult Login(string email,string password)
-        //{
-        //    Customer c = customerBUS.CheckCustomer(email, password);
-        //    if (c == null)
-        //    {
-        //        return Json(c, JsonRequestBehavior.AllowGet);
-        //    }
-        //    else
-        //    {
-        //        FormsAuthentication.SetAuthCookie(email, false);
-        //        return Json(c, JsonRequestBehavior.AllowGet);
-        //    }
-        //}
-        //[HttpPost]
-        //public ActionResult Logout()
-        //{
-        //    FormsAuthentication.SignOut();
-        //    return RedirectToAction("Login");
-        //}
-
+        [HttpGet]
+        public JsonResult GetTop15ProductPhone()
+        {
+            return Json(productBUS.GetTop15ProductPhone(), JsonRequestBehavior.AllowGet);
+        }
+        
         public JsonResult Logout()
         {
             Session.Remove("login");

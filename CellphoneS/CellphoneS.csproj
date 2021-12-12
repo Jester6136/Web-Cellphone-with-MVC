@@ -11519,6 +11519,7 @@
     <Content Include="assets\images\xiaomi-mi-11-lite-5g-2_10.webp" />
     <Content Include="Areas\Administrator\Scripts\Controller\ProductController.js" />
     <Content Include="Scripts\Controller\CartController.js" />
+    <Content Include="Scripts\Controller\HomeController.js" />
     <Content Include="Scripts\Controller\MenuController.js" />
     <Content Include="Scripts\Controller\ProductDetailController.js" />
     <Content Include="Scripts\Controller\ProductsController.js" />

@@ -128,25 +128,15 @@
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-4 flex-column d-flex">
                                 <label class="form-control-label px-3">Loại sản phẩm<span class="text-danger"> *</span></label>
-                                <select id="category" class="selectpicker" style="border: 1px solid #ccc; font-size: 14px;" ng-model="NewProduct.CategoryName">
-                                    <option>Điện thoại</option>
-                                    <option>Laptop, PC, Màn hình</option>
-                                    <option>Tablet</option>
-                                    <option>Âm thanh</option>
-                                    <option>Đồng hồ</option>
-                                    <option>Nhà thông minh</option>
-                                    <option>Phụ kiện</option>
-                                    <option>Thu cũ</option>
-                                    <option>Hàng cũ</option>
+                                <select class="selectpicker category" style="border: 1px solid #ccc; font-size: 14px;" ng-model="NewProduct.CategoryName">
+                                    <option ng-repeat="Category in Categories" class="{{Category.STT}}">{{Category.CategoryName}}</option>
                                 </select>
                             </div>
 
                             <div class="form-group col-sm-4 flex-column d-flex">
                                 <label class="form-control-label px-3">Hãng sản xuất<span class="text-danger"> *</span></label>
                                 <select id="brand" class="selectpicker" style="border: 1px solid #ccc; font-size: 14px;" ng-model="NewProduct.BrandName">
-                                    <option>Apple</option>
-                                    <option>Samsung</option>
-                                    <option>Xiaomi</option>
+                                    <option ng-repeat="Brand in Brands">{{Brand.BrandName}}</option>
                                 </select>
                             </div>
                             <div class="form-group col-sm-4 flex-column d-flex">

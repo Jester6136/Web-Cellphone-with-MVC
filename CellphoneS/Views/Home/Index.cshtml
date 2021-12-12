@@ -2,30 +2,482 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<div class="box-slide">
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="container">
+        <div class="toggle-content col-3 col-m-5">
+            <div class="row">
+                <ul>
+                    <li ng-repeat="item in categories">
+                        <a href="" ng-click="PushCategory(brand.CategoryID)" value="{{item.categoryID}}">
+                            <i class="{{item.icon}}"></i>
+                            {{item.categoryName}}
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                        <ul>
+                            <a href="/Products/ProductsBrand" ng-click="PushBrand(brand.CategoryID,brand.BrandID)" style="width: 100%;" ng-repeat="brand in item.brands" value="{{brand.BrandID}}">
+                            <li style="width:100%;">{{brand.BrandName}}</li></a>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="fal fa-newspaper"></i>
+                            Tin công nghệ
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="fal fa-tag"></i>
+                            Khuyến mãi
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--Slide-->
+
+
+        <div class="slide col-12 col-m-15 col-s-20">
+            <div class="slides">
+                <ul>
+                    <a href="">
+                    <li class="active">
+                        <img src="~/assets/images/slide1.png" alt="">
+                    </li></a>
+                    <a href="">
+                    <li>
+                        <img src="~/assets/images/slide2.png" alt="">
+                    </li></a>
+                    <a href="">
+                    <li>
+                        <img src="~/assets/images/slide3.png" alt="">
+                    </li></a>
+                    <a href="">
+                    <li>
+                        <img src="~/assets/images/slide4.png" alt="">
+                    </li></a>
+                    <a href="">
+                    <li>
+                        <img src="~/assets/images/slide2.png" alt="">
+                    </li></a>
+                </ul>
+            </div>
+            <div class="buttons">
+                <b class="left"><i class="fas fa-chevron-left"></i></b>
+                <b class="right"><i class="fas fa-chevron-right"></i></b>
+            </div>
+        </div>
+        <!--End Slide -->
+
+
+
+        <div class="advertisement col-5">
+            <div class="banner">
+                <img src="~/assets/images/banner1.png" alt="">
+            </div>
+            <div class="banner">
+                <img src="~/assets/images/banner2.png" alt="">
+            </div>
+            <div class="banner">
+                <img src="~/assets/images/banner3.png" alt="">
+            </div>
+        </div>
+        <div class="big-banner col-20 col-m-20">
+            <img src="~/assets/images/big-banner.png" alt="">
+        </div>
     </div>
 </div>
+<div class="list-brand">
+    <div class="container">
+        <ul>
+            <li class="col-5 col-m-5 col-s-10">
+                <a href="">
+                    <img src="~/assets/images/applelogo.png" alt="">
+                </a>
+            </li>
+
+            <li class="col-5 col-m-5 col-s-10">
+                <a href="">
+                    <img id="samsung" src="~/assets/images/samsunglogo.png" alt="">
+                </a>
+            </li>
+
+            <li class="col-5 col-m-5 col-s-10">
+                <a href="">
+                    <img id="asus" src="~/assets/images/asuslogo.png" alt="">
+                </a>
+            </li>
+
+            <li class="col-5 col-m-5 col-s-10">
+                <a href="">
+                    <img src="~/assets/images/xiaomilogo.png" alt="">
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div style="clear: both;"></div>
+<div class="boxListItem" ng-controller="homeController">
+    <div class="container">
+        <div class="tittle-box">
+            <h3>Điện thoại nổi bật nhất</h3>
+        </div>
+        <div class="list-product">
+            <div class="shadow"></div>
+            <div class="product col-4 col-m-5 col-s-10" ng-repeat="Product in Products">
+                <div class="product-img">
+                    <img src="~/assets/images/{{Product.ImageName}}" alt="">
+                </div>
+                <div class="product-info">
+                    <h4 class="product-name">{{Product.ProductName}}</h4>
+                    <div class="price">
+                        <p class="special-price">{{Product.NewPrice}}</p>
+                        <p class="old-price">{{Product.OldPrice}}</p>
+                    </div>
+                    <div class="offers">
+                        <p>{{Product.PromotionName}}</p>
+                    </div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <p>1 đánh giá</p>
+                    </div>  
+                    <div class="product-btn">
+                        <a href="/Products/ProductDetail"><button class="buy-btn" ng-click="getProduct(Product)">Mua ngay</button></a>
+                        <a href=""><button class="compare">So sánh</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="clear: both; margin-top: 20px;margin-bottom: 50px;"></div>
+        <div class="tittle-box">
+            <h3>Laptop</h3>
+        </div>
+        <div class="list-product">
+            <div id="16" class="product col-4 col-m-5 col-s-10">
+                <div class="product-img">
+                    <img src="assets/images/macbook-air-gold-select-201810_4.jpg" alt="">
+                </div>
+                <div class="product-info">
+                    <h4 class="product-name">Apple MacBook Air M1 256GB 2020 | Chính hãng Apple Việt Nam</h4>
+                    <div class="price">
+                        <p class="special-price">26.200.000&nbsp;₫</p>
+                        <p class="old-price">27.990.000&nbsp;₫</p>
+                    </div>
+                    <div class="offers">
+                        <p>CPU: 8 nhân với 4 nhân hiệu năng cao...<br>Màn hình: 13.3 inchs</p>
+                    </div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <p>4 đánh giá</p>
+                    </div>
+                    <div class="product-btn">
+                        <a href="ProductDetail.html"><button class="buy-btn">Mua ngay</button></a>
+                        <a href=""><button class="compare">So sánh</button></a>
+                    </div>
+                </div>
+            </div>
+            <div id="17" class="product col-4 col-m-5 col-s-10">
+                <div class="product-img">
+                    <img src="assets/images/mbp-silver-select-202011.jpg" alt="">
+                </div>
+                <div class="product-info">
+                    <h4 class="product-name">Apple MacBook Pro 13 Touch Bar M1 256GB 2020 | Chính hãng Apple Việt Nam</h4>
+                    <div class="price">
+                        <p class="special-price">31.500.000&nbsp;₫</p>
+                        <p class="old-price">25.990.000&nbsp;₫</p>
+                    </div>
+                    <div class="offers">
+                        <p>CPU: 8 nhân với 4 nhân hiệu năng cao...<br>Màn hình: 13.3 inchs</p>
+                    </div>
+                    <div class="rating">
+                    </div>
+                    <div class="product-btn">
+                        <a href="ProductDetail2.html"><button class="buy-btn">Mua ngay</button></a>
+                        <a href=""><button class="compare">So sánh</button></a>
+                    </div>
+                </div>
+            </div>
+            <div id="18" class="product col-4 col-m-5 col-s-10">
+                <div class="product-img">
+                    <img src="assets/images/RogLap.jpg" alt="">
+                </div>
+                <div class="product-info">
+                    <h4 class="product-name">Laptop ASUS Gaming ROG Strix G512	</h4>
+                    <div class="price">
+                        <p class="special-price">21.900.000&nbsp;₫</p>
+                        <p class="old-price">24.490.000&nbsp;₫</p>
+                    </div>
+                    <div class="offers">
+                        <p>Intel® Core™ I5-10300H, 2.50GHz upto...<br>Màn hình: 15.6 inchs</p>
+                    </div>
+                    <div class="rating">
+                    </div>
+                    <div class="product-btn">
+                        <a href="ProductDetail.html"><button class="buy-btn">Mua ngay</button></a>
+                        <a href=""><button class="compare">So sánh</button></a>
+                    </div>
+                </div>
+            </div>
+            <div id="19" class="product col-4 col-m-5 col-s-10">
+                <div class="product-img">
+                    <img src="assets/images/laptop-asus-vivobook-r564ja-uh51t-11.jpg" alt="">
+                </div>
+                <div class="product-info">
+                    <h4 class="product-name">Laptop Asus Vivobook R564JA-UH51T </h4>
+                    <div class="price">
+                        <p class="special-price">14.980.000&nbsp;₫</p>
+                        <p class="old-price">16.990.000&nbsp;₫</p>
+                    </div>
+                    <div class="offers">
+                        <p>CPU: Core i5 1035G1<br>Màn hình: 15.6 inchs</p>
+                    </div>
+                    <div class="rating">
+                    </div>
+                    <div class="product-btn">
+                        <a href="ProductDetail.html"><button class="buy-btn">Mua ngay</button></a>
+                        <a href=""><button class="compare">So sánh</button></a>
+                    </div>
+                </div>
+            </div>
+            <div id="20" class="product col-4 col-m-5 col-s-10">
+                <div class="product-img">
+                    <img src="assets/images/laptop-asus-vivobook-x415ma-pentium-n5030-4_2.jpg" alt="">
+                </div>
+                <div class="product-info">
+                    <h4 class="product-name">Laptop ASUS VivoBook X515MA-BR112T</h4>
+                    <div class="price">
+                        <p class="special-price">7.490.000&nbsp;₫</p>
+                        <p class="old-price"></p>
+                    </div>
+                    <div class="offers">
+                        <p>Intel Celeron N4020 , tốc độ 1.1...<br>Màn hình: 15.6 inchs</p>
+                    </div>
+                    <div class="rating">
+                    </div>
+                    <div class="product-btn">
+                        <a href="ProductDetail.html"><button class="buy-btn">Mua ngay</button></a>
+                        <a href=""><button class="compare">So sánh</button></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div style="clear: both; margin-top: 20px;margin-bottom: 50px;"></div>
+        <div class="tittle-box">
+            <h3>Danh mục phụ kiện</h3>
+        </div>
+        <div class="list-product">
+            <div id="21" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc1.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Phụ kiện Apple
+                    </div>
+                </a>
+            </div>
+            <div id="22" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc2.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Pin dự phòng
+                    </div>
+                </a>
+            </div>
+            <div id="23" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc3.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Dán màn hình
+                    </div>
+                </a>
+            </div>
+            <div id="24" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc4.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Dây đồng hồ
+                    </div>
+                </a>
+            </div>
+            <div id="25" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc5.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Thẻ nhớ
+                    </div>
+                </a>
+            </div>
+            <div id="26" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc6.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Camera
+                    </div>
+                </a>
+            </div>
+            <div id="27" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc7.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Thiết bị mạng
+                    </div>
+                </a>
+            </div>
+            <div id="28" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc8.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Nhà thông minh
+                    </div>
+                </a>
+            </div>
+            <div id="29" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc9.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Cáp sạc
+                    </div>
+                </a>
+            </div>
+            <div id="30" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc10.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Ốp bao da
+                    </div>
+                </a>
+            </div>
+            <div id="31" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc11.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Ổ cứng
+                    </div>
+                </a>
+            </div>
+            <div id="32" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc12.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Chuột bàn phím
+                    </div>
+                </a>
+            </div>
+            <div id="33" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc22.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Gaming gear
+                    </div>
+                </a>
+            </div>
+            <div id="34" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc14.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Máy lọc không khí
+                    </div>
+                </a>
+            </div>
+            <div id="35" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc15.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Loa
+                    </div>
+                </a>
+            </div>
+            <div id="36" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc16.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Tai nghe
+                    </div>
+                </a>
+            </div>
+            <div id="37" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc17.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Quạt
+                    </div>
+                </a>
+            </div>
+            <div id="38" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc18.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Phụ kiện chụp
+                    </div>
+                </a>
+            </div>
+            <div id="39" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc23.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Phụ kiện Laptop
+                    </div>
+                </a>
+            </div>
+            <div id="40" class="cate-accessories col-2 col-m-5 col-s-5">
+                <a href="">
+                    <div class="cate-accessories-img">
+                        <img src="assets/images/acc25.png" alt="">
+                    </div>
+                    <div class="cate-accessories-name">
+                        Xem thêm
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+@section js{
+    <script src="~/Scripts/Controller/HomeController.js"></script>
+}
