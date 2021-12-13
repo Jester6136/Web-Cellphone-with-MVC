@@ -320,6 +320,7 @@ myapp.controller("memoryTable", function ($http, $scope, $rootScope) {
 
 
     $('#ttable2').on('click', 'tr', function () {
+        console.log('ngu')
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
         }
@@ -352,12 +353,117 @@ myapp.controller("memoryTable", function ($http, $scope, $rootScope) {
 })
 
 ////////////////////////////EditProduct////////////////////////////
+myapp.controller("editProductController", function ($http, $scope, $rootScope) {
+    $scope.Megaproduct = [];
+    $rootScope.openDialogEdit = function (obj) {
+        $http({
+            method: 'get',
+            params: { productID : obj.ProductID },
+            url: '/Product/GetProductDetail'
+        }).then(function success(res) {
+            var Megaproduct = JSON.parse(JSON.parse(res.data));
+            $scope.Megaproduct = Megaproduct[0];
+            console.log($scope.Megaproduct)
 
+
+
+
+            //Controller EDIT
+
+            //Begin menu category
+            $http({
+                method: 'get',
+                url: '/Product/GetCategoryBrandADMIN'
+            }).then(function success(res) {
+                var CategoryBrand = JSON.parse(JSON.parse(res.data));
+                $scope.Categories = [];
+                $scope.Brands = [];
+                var index = 100;
+                for (var i = 0; i < CategoryBrand.length; i++) {
+                    var Catetory = [];
+                    var category_tmp = CategoryBrand[i];
+                    Catetory.STT = i;
+                    Catetory.CategoryID = category_tmp.CategoryID;
+                    Catetory.CategoryName = category_tmp.CategoryName;
+                    $scope.Categories.push(Catetory);
+                    $scope.Categories[i].Brands = [];
+                    if (category_tmp.Brands != null) {
+                        for (var j = 0; j < category_tmp.Brands.length; j++) {
+                            var Brand = []
+                            var brand_tmp = category_tmp.Brands[j];
+                            Brand.BrandID = brand_tmp.BrandID;
+                            Brand.BrandName = brand_tmp.BrandName;
+                            $scope.Categories[i].Brands.push(Brand);
+                            if (brand_tmp.BrandID == $scope.Megaproduct.BrandID) {
+                                index = i;
+                            }
+                        }
+                    }
+                }
+                console.log(index);
+                $scope.CategoryBrand = CategoryBrand;
+                $scope.Brands = $scope.Categories[index].Brands;
+            }, function error(res) {
+                console.log(res);
+            })
+            //end menu category 
+
+
+            //begin Memoríe Colors
+            $scope.Colors = [];
+            $scope.eclickMemory = function (obj) {
+                $scope.MemoryName = obj.MemoryName;
+                $scope.MDescription = obj.Description;
+                var id = obj.MemoryID;
+                for (var i = 0; i < $scope.Megaproduct.Memories.length; i++) {
+                    if (id == $scope.Megaproduct.Memories[i].MemoryID) {
+                        $scope.Colors = $scope.Megaproduct.Memories[i].Colors;
+                    }
+                }
+                $scope.eeditMemory = function (MemoryName, MDescription) {
+                    obj.MemoryName = MemoryName;
+                    obj.Description = MDescription;
+                }
+            }
+
+            //change color click memory
+            $('#ettable2').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    $.each($('#ettable2 tr.selected'), function (idx, val) {
+                        $(this).removeClass('selected');
+                    });
+                    $(this).addClass('selected');
+                }
+            });
+
+
+        }, function error(res) {
+            console.log(res);
+        })
+
+        $('#eimpressive_image').removeClass('fileupload-new').addClass('fileupload-exists');
+
+
+
+        $('#dialogEditmember').show();  
+    }
+
+    
+    //Change category
+    $('.ecategory').on('change', function (e) {
+        var optionSelected = $("option:selected", this);
+        var index = optionSelected[0].className;
+        $scope.Brands = $scope.Categories[index].Brands;
+    });
+})
 
 ////////////////////////////DeleteProduct////////////////////////////
 
 
-
+//click
 $('#addToTablee').click(function () {
     $.get(`GetNextProductID`).done(
         function (res) {

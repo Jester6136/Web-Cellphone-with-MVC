@@ -74,8 +74,8 @@
                         <td>{{Product.BrandName}}</td>
                         <td class="image_index"><img src="~/assets/images/{{Product.ImageName}}" alt="Alternate Text" /></td>
                         <td class="actions" style="width:65px;">
-                            <a href="#" class="on-default editt-row"><i class="fa fa-pencil"></i></a>
-                            <a href="#" class="on-default removeMember"><i class="fa fa-trash-o"></i></a>
+                            <a href="" class="on-default editt-row" ng-click="openDialogEdit(Product)"><i class="fa fa-pencil"></i></a>
+                            <a href="" class="on-default removeMember"><i class="fa fa-trash-o"></i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -185,8 +185,9 @@
                                         <input type="text" id="memodiscription" ng-model="Memory.Description" name="memodiscription" placeholder="Nhập mô tả" required>
                                     </div>
                                     <div class="form-group col-sm-4 flex-column d-flex">
-                                        <div class="col-md-12 text-right">
-                                            <button id="dialogAddmemory" class="btn btn-primary  save" style="height: 55.2px; width: 80px; " type="button" ng-click="addMemory(Memory)">Thêm</button>
+                                        <div class="col-md-12 text-right" style="display:flex;">
+                                            <button id="dialogAddmemory" class="btn btn-primary  save" style="height: 55.2px; width: 80px;margin-right:10px;" type="button" ng-click="addMemory(Memory)">Thêm</button>
+                                            <button id="dialogEditmemory" class="btn btn-primary  edit-save" style="height: 55.2px; width: 80px; " type="button" ng-click="editMemory(Memory)">Edit</button>
                                         </div>
                                     </div>  
 
@@ -288,113 +289,176 @@
     </div>
 </div>
 
-<div class="mx-auto workform" id="dialogEditmember" style="display: none;">
+<div class="mx-auto workform" id="dialogEditmember" style="display: none;" ng-controller="editProductController">
     <div class="row d-flex justify-content-center">
-        <div class="col-xl-7 col-lg-8 col-md-9 col-18 text-center">
+        <div class="col-xl-7 col-lg-8 col-md-9 col-19 text-center">
             <div class="card">
                 <h3 class="text-center mb-4">Nhập thông tin</h3>
                 <form class="form-card" id="frmedit">
-                    <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Mã sản phẩm<span class="text-danger"> *</span></label> <input type="text" id="efid" name="efid" placeholder="Nhập mã" required readonly> </div>
-                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Họ tên<span class="text-danger"> *</span></label> <input type="text" id="efname" name="efname" placeholder="Nhập Tên" required> </div>
-                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Mã người giới thiệu<span class="text-danger"> *</span></label> <input type="text" id="ereferralID" name="ereferralID" placeholder="" minlength="8" maxlength="8"> </div>
-                    </div>
-                    <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-4 flex-column d-flex">
-                            <label class="form-control-label px-3">Giới tính<span class="text-danger"> *</span></label>
-                            <select id="egender" class="selectpicker" style="border: 1px solid #ccc; font-size: 14px;">
-                                <option>Nam</option>
-                                <option>Nữ</option>
-                                <option>Khác</option>
-                            </select>
+                    <div class="block" style=" background: seashell;">
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Mã sản phẩm<span class="text-danger"> *</span></label> <input type="text" id="eid" name="eid" placeholder="Nhập mã" required readonly ng-model="Megaproduct.ProductID"></div>
+                            <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Tên sản phẩm<span class="text-danger"> *</span></label> <input type="text" id="ename" name="fname" placeholder="Nhập Tên" required ng-model="Megaproduct.ProductName"></div>
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Ngày ra mắt<span class="text-danger"> *</span></label>
+                                <input id="eDateRelease" data-plugin-datepicker name="OrderDate" readonly autocomplete="off" ng-model="Megaproduct.ReleaseDate" required>
+                            </div>
                         </div>
-                        <div class="form-group col-sm-4 flex-column d-flex">
-                            <label class="form-control-label px-3">Ngày sinh<span class="text-danger"> *</span></label>
-                            <input data-plugin-datepicker name="OrderDate" id="edob" required autocomplete="off">
-                        </div>
-                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Địa chỉ<span class="text-danger"> *</span></label> <input type="text" id="eaddress" name="eaddress" placeholder="" required> </div>
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Loại sản phẩm<span class="text-danger"> *</span></label>
+                                <select class="selectpicker ecategory" style="border: 1px solid #ccc; font-size: 14px;" ng-model="Megaproduct.CategoryName">
+                                    <option ng-repeat="Category in Categories" class="{{Category.STT}}">{{Category.CategoryName}}</option>
+                                </select>
+                            </div>
 
-                    </div>
-                    <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Email<span class="text-danger"> *</span></label> <input type="email" required id="eemail" name="eemail" placeholder=""> </div>
-
-                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Số điện thoại<span class="text-danger"> *</span></label> <input type="text" id="ephone" name="ephone" placeholder="" required minlength="10" maxlength="10"> </div>
-                        <div class="form-group col-sm-4 flex-column d-flex">
-                            <label class="form-control-label px-3">Số CMND<span class="text-danger"> *</span></label> <input type="text" id="eIDCard" name="eIDCard" placeholder="" required minlength="10" maxlength="13">
-                        </div>
-                    </div>
-                    <div class="row justify-content-between text-left">
-
-                        <div class="form-group col-sm-4 flex-column d-flex">
-                            <label class="form-control-label px-3">Nơi cấp<span class="text-danger"> *</span></label> <input type="text" id="eIDCard_PlaceIssue" name="eIDCard_PlaceIssue" placeholder="" required>
-                        </div>
-                        <div class="form-group col-sm-4 flex-column d-flex">
-                            <label class="form-control-label px-3">Ngày cấp<span class="text-danger"> *</span></label>
-                            <input id="eIDCard_DateIssue" data-plugin-datepicker name="OrderDate" autocomplete="off" required>
-                        </div>
-                        <div class="form-group col-sm-4 flex-column d-flex">
-                            <label class="form-control-label px-3">Mật khẩu<span class="text-danger"> *</span></label>
-                            <input type="text" id="epassword" name="epassword" placeholder="" required minlength="8">
-                        </div>
-
-                    </div>
-
-                    <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-4 flex-column d-flex">
-                            <label class="form-control-label px-3">Vị trí<span class="text-danger"> *</span></label>
-                            <select id="eposition" class="selectpicker" style="border: 1px solid #ccc; font-size: 14px;">
-                                <option>sản phẩm</option>
-                                <option>sản phẩm 300đ</option>
-                                <option>sản phẩm tích cực</option>
-                                <option>sản phẩm đạt chuẩn</option>
-                                <option>Trưởng nhóm</option>
-                                <option>Trưởng phòng dự bị</option>
-                                <option>Trưởng phòng</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group col-sm-4 flex-column d-flex">
-                            <label class="form-control-label px-3">Chức vụ<span class="text-danger"> *</span></label>
-                            <select id="erole" class="selectpicker" style="border: 1px solid #ccc; font-size: 14px;">
-                                <option>sản phẩm</option>
-                                <option>Quản trị viên</option>
-                                <option>Chủ sở hữu</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-sm-4 flex-column d-flex">
-                            <label class="form-control-label px-3">Active<span class="text-danger"> *</span></label>
-                            <select class="selectpicker" style="border: 1px solid #ccc; font-size: 14px;" id="eisactive">
-                                <option>Đã active</option>
-                                <option>Chưa active</option>
-                            </select>
-                        </div>
-                    </div>
-
-
-                    <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-12 flex-column d-flex">
-                            <label class="form-control-label px-3">Ảnh<span class="text-danger"> *</span></label>
-                            <div class="fileupload fileupload-new" data-provides="fileupload" style="width: 100%;">
-                                <div class="input-append">
-                                    <div class="uneditable-input">
-                                        <span class="fileupload-preview"></span>
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Hãng sản xuất<span class="text-danger"> *</span></label>
+                                <select id="ebrand" class="selectpicker" style="border: 1px solid #ccc; font-size: 14px;" ng-model="Megaproduct.BrandName">
+                                    <option ng-repeat="Brand in Brands">{{Brand.BrandName}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-4 flex-column d-flex">
+                                <label class="form-control-label px-3">Ảnh chính<span class="text-danger"> *</span></label>
+                                <div class="fileupload fileupload-new" data-provides="fileupload" style="width: 100%;" id="eimpressive_image">
+                                    <div class="input-append">
+                                        <div class="uneditable-input">
+                                            <span class="fileupload-preview" id="eimageName">{{Megaproduct.ImageName}}</span>
+                                        </div>
+                                        <span class="btn btn-default btn-file">
+                                            <span class="fileupload-exists">Thay đổi</span>
+                                            <span class="fileupload-new">Chọn ảnh</span>
+                                            <input id="eimageProduct" type="file" accept="image/*" ngf-select="UploadFiles($file)">
+                                        </span>
+                                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
                                     </div>
-                                    <span class="btn btn-default btn-file">
-                                        <span class="fileupload-exists">Thay đổi</span>
-                                        <span class="fileupload-new">Chọn ảnh</span>
-                                        <input id="eavatar" type="file" accept="image/*">
-                                    </span>
-                                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
                                 </div>
                             </div>
                         </div>
-
                     </div>
+
+                    <div class="col-20" style="display: flex;">
+                        <div class="col-10 sub-block">
+                            <div class="block" style=" background: oldlace;">
+                                <div class="row justify-content-between text-left">
+                                    <div class="form-group col-sm-12 flex-column d-flex" style="margin-bottom:15px;">
+                                        <label class="form-control-label px-3">Bộ nhớ<span class="text-danger"> *</span></label>
+                                        <input type="text" id="ememory" list="memo" ng-model="MemoryName" />
+                                        <datalist id="ememo">
+                                            <option>2GB</option>
+                                            <option>4GB</option>
+                                            <option selected>8GB</option>
+                                            <option>16GB</option>
+                                            <option>32GB</option>
+                                            <option>64GB</option>
+                                            <option>128GB</option>
+                                            <option>512GB</option>
+                                            <option>1TB</option>
+                                            <option>2TB</option>
+                                        </datalist>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between text-left">
+                                    <div class="form-group col-sm-8 flex-column d-flex">
+                                        <label class="form-control-label px-3">Mô tả<span class="text-danger"> *</span></label>
+                                        <input type="text" id="ememodiscription" ng-model="MDescription" name="memodiscription" placeholder="Nhập mô tả" required>
+                                    </div>
+                                    <div class="form-group col-sm-4 flex-column d-flex">
+                                        <div class="col-md-12 text-right" style="display:flex;">
+                                            <button id="edialogAddmemory" class="btn btn-primary  save" style="height: 55.2px; width: 80px;margin-right:10px;" type="button" ng-click="eaddMemory(Memory)">Thêm</button>
+                                            <button id="dialogEditmemory" class="btn btn-primary  edit-save" style="height: 55.2px; width: 80px; " type="button" ng-click="eeditMemory(MemoryName,MDescription)">Edit</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <table class="table table-bordered table-striped mb-none" id="edatatable-editable1">
+                                <thead>
+                                    <tr>
+                                        <th class="center">MemoryID</th>
+                                        <th class="center">Bộ nhớ</th>
+                                        <th class="center">Mô tả</th>
+                                        <th class="center" style="width:65px;">Tác vụ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ettable2">
+                                    <tr class="gradeA" ng-repeat="Memory in Megaproduct.Memories" ng-click="eclickMemory(Memory)">
+                                        <td>{{Memory.MemoryID}}</td>
+                                        <td>{{Memory.MemoryName}}</td>
+                                        <td>{{Memory.Description}}</td>
+                                        <td class="actions" style="width:65px;">
+                                            <a href="" class="on-default editMemory"><i class="fa fa-pencil"></i></a>
+                                            <a href="" class="on-default removeMemory"><i class="fa fa-trash-o"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-10 sub-block">
+                            <div class="block" style=" background: oldlace;">
+                                <div class="row justify-content-between text-left">
+                                    <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Màu<span class="text-danger"> *</span></label> <input type="text" id="colorName" name="colorName" placeholder="Nhập Màu" required ng-model="Color.ColorName"> </div>
+                                    <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Giá<span class="text-danger"> *</span></label> <input type="text" id="price" name="price" placeholder="Nhập giá" required ng-model="Color.Price"> </div>
+                                    <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Số lượng<span class="text-danger"> *</span></label> <input type="text" id="quantityColor" name="quantityColor" placeholder="Số lượng" required ng-model="Color.Quantity"> </div>
+                                </div>
+                                <div class="row justify-content-between text-left">
+                                    <div class="form-group col-sm-8 flex-column d-flex">
+                                        <label class="form-control-label px-3">Ảnh<span class="text-danger"> *</span></label>
+                                        <div class="fileupload fileupload-new" data-provides="fileupload" style="width: 100%;">
+                                            <div class="input-append">
+                                                <div class="uneditable-input">
+                                                    <span class="fileupload-preview" id="ecolorImage"></span>
+                                                </div>
+                                                <span class="btn btn-default btn-file">
+                                                    <span class="fileupload-exists">Thay đổi</span>
+                                                    <span class="fileupload-new">Chọn ảnh</span>
+                                                    <input type="file" accept="image/*" ngf-select="UploadFiles($file)">
+                                                </span>
+                                                <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-4 flex-column d-flex">
+                                        <div class="col-md-12 text-right">
+                                            <button id="edialogAddColorPrice" class="btn btn-primary  save" style="height: 55.2px; width: 80px; " type="button" ng-click="addColor(Color)">Thêm</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <table class="table table-bordered table-striped mb-none" id="edatatable-editable2">
+                                <thead>
+                                    <tr>
+                                        <th class="center">Màu</th>
+                                        <th class="center">Giá bán lẻ</th>
+                                        <th class="center">Số lượng</th>
+                                        <th class="center">Ảnh</th>
+                                        <th class="center" style="width:65px;">Tác vụ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ettable3">
+                                    <tr class="gradeA" ng-repeat="Color in Colors">
+                                        <td>{{Color.ColorName}}</td>
+                                        <td>{{Color.Price}}</td>
+                                        <td>{{Color.Quantity}}</td>
+                                        <td class="image_index"><img src="~/assets/images/{{Color.ColorImage}}" /></td>
+                                        <td class="actions" style="width:65px;">
+                                            <a href="#" class="on-default editColor"><i class="fa fa-pencil"></i></a>
+                                            <a href="#" class="on-default removeColor"><i class="fa fa-trash-o"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                     <footer class="" style="padding: 15px 0px;">
                         <div class="row">
                             <div class="col-md-12 text-right">
-                                <button id="edialogConfirm" class="btn btn-primary  save" type="button">Lưu</button>
-                                <button id="edialogCancel" class="btn btn-default  exit" type="button">Đóng</button>
+                                <button id="dialogConfirmEditProduct" class="btn btn-primary  save" type="button">Lưu</button>
+                                <button id="dialogCancelEditProduct" class="btn btn-default  exit" type="button">Đóng</button>
                             </div>
                         </div>
                     </footer>
