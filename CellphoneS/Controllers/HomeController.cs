@@ -77,7 +77,6 @@ namespace CellphoneS.Controllers
             }
             //return Json(new { login = "1", Khach = u }, JsonRequestBehavior.AllowGet);
             return Json(new { login = Session["login"], Khach = u }, JsonRequestBehavior.AllowGet);
-
         }
     }
 }

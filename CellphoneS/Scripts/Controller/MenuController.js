@@ -52,6 +52,7 @@ myapp.controller("menuController", function ($scope, $http, $rootScope) {
         alert(err);
     })
 })
+
 myapp.controller("loginController", function ($rootScope, $window, $http, $scope) {
     if (sessionStorage.getItem('login') != null) {
         var islogin = sessionStorage.getItem('login');
@@ -70,10 +71,6 @@ myapp.controller("loginController", function ($rootScope, $window, $http, $scope
     $rootScope.Khach = null;
     $rootScope.remember = false;
     $rootScope.userName = "";
-    $rootScope.Logout = function () {
-        document.getElementById('dropdownMenuButton').style.display = 'none';
-        location.reload();
-    };  
     $rootScope.Login = function (un, pw, rp) {
         $http({
             method: 'get',

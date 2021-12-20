@@ -169,7 +169,7 @@ namespace DAO
             }
             string spName = "InsertProductMemosColors";
             string ListMemories = JsonConvert.SerializeObject(p.Memories);
-            SqlDataReader dr = dh.StoreReaders(spName, p.ProductName,p.CategoryName,p.BrandName,p.DateRelease,ListMemories);
+            SqlDataReader dr = dh.StoreReaders(spName, p.ProductName,p.CategoryName,p.BrandName,p.DateRelease,p.ImageName,ListMemories);
         }
         public string GetTop15ProductPhone()
         {
@@ -200,6 +200,38 @@ namespace DAO
             return result;
         }
 
+        public void EditMemory(string memoryID,string memoryName,string description)
+        {
+            string spName = "EditMemory";
+            dh.StoreReaders(spName, memoryID, memoryName, description);
+        }
+
+        public void EditColor(string colorID,string colorName,string colorImage,string quantity,string price)
+        {
+            string spName = "EditColor";
+            dh.StoreReaders(spName, colorID, colorName,colorImage,quantity,price);
+        }
+
+        public void InsertMemory(string productID, string memoryName, string description)
+        {
+            string spName = "InsertMemory";
+            dh.StoreReaders(spName, productID, memoryName, description);
+        }
+        public void InsertColor(string productID,string memoryID,string colorName, string colorImage, string quantity, string price)
+        {
+            string spName = "InsertColor";
+            dh.StoreReaders(spName, productID, memoryID, colorName, colorImage, quantity, price);
+        }
+        public void DeleteColor(string id)
+        {
+            string spName = "DeleteColor";
+            dh.StoreReaders(spName, id);
+        }
+        public void DeleteMemory(string id)
+        {
+            string spName = "DeleteMemory";
+            dh.StoreReaders(spName, id);
+        }
         private string NextColorID(string id)
         {
             string number = id.Substring(2,8);

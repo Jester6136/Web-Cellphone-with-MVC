@@ -13,8 +13,6 @@
     <link rel="stylesheet" href="~/Areas/Administrator/assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css" />
     <link href="~/Areas/Administrator/assets/vendor/jquery-datatables-bs3/assets/css/jquery.dataTables.min.css" rel="stylesheet" />
 }
-
-
 <section role="main" class="content-body">
     <header class="page-header">
         <h2>Quản lý sản phẩm</h2>
@@ -128,7 +126,7 @@
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-4 flex-column d-flex">
                                 <label class="form-control-label px-3">Loại sản phẩm<span class="text-danger"> *</span></label>
-                                <select class="selectpicker category" style="border: 1px solid #ccc; font-size: 14px;" ng-model="NewProduct.CategoryName">
+                                <select class="selectpicker category" id="cName" style="border: 1px solid #ccc; font-size: 14px;" ng-model="NewProduct.CategoryName">
                                     <option ng-repeat="Category in Categories" class="{{Category.STT}}">{{Category.CategoryName}}</option>
                                 </select>
                             </div>
@@ -185,10 +183,9 @@
                                         <input type="text" id="memodiscription" ng-model="Memory.Description" name="memodiscription" placeholder="Nhập mô tả" required>
                                     </div>
                                     <div class="form-group col-sm-4 flex-column d-flex">
-                                        <div class="col-md-12 text-right" style="display:flex;">
+                                        <div class="col-md-12 text-right">
                                             <button id="dialogAddmemory" class="btn btn-primary  save" style="height: 55.2px; width: 80px;margin-right:10px;" type="button" ng-click="addMemory(Memory)">Thêm</button>
-                                            <button id="dialogEditmemory" class="btn btn-primary  edit-save" style="height: 55.2px; width: 80px; " type="button" ng-click="editMemory(Memory)">Edit</button>
-                                        </div>
+                                            </div>
                                     </div>  
 
                                 </div>
@@ -209,7 +206,6 @@
                                         <td>{{Memory.MemoryName}}</td>
                                         <td>{{Memory.Description}}</td>
                                         <td class="actions" style="width:65px;">
-                                            <a href="#" class="on-default editMemory"><i class="fa fa-pencil"></i></a>
                                             <a href="#" class="on-default removeMemory"><i class="fa fa-trash-o"></i></a>
                                         </td>
                                     </tr>
@@ -266,7 +262,6 @@
                                         <td>{{Color.Quantity}}</td>
                                         <td class="image_index"><img src="~/assets/images/{{Color.ColorImage}}" /></td>
                                         <td class="actions" style="width:65px;">
-                                            <a href="#" class="on-default editColor"><i class="fa fa-pencil"></i></a>
                                             <a href="#" class="on-default removeColor"><i class="fa fa-trash-o"></i></a>
                                         </td>
                                     </tr>
@@ -288,7 +283,7 @@
         </div>
     </div>
 </div>
-
+@* Edit *@
 <div class="mx-auto workform" id="dialogEditmember" style="display: none;" ng-controller="editProductController">
     <div class="row d-flex justify-content-center">
         <div class="col-xl-7 col-lg-8 col-md-9 col-19 text-center">
@@ -365,8 +360,8 @@
                                     </div>
                                     <div class="form-group col-sm-4 flex-column d-flex">
                                         <div class="col-md-12 text-right" style="display:flex;">
-                                            <button id="edialogAddmemory" class="btn btn-primary  save" style="height: 55.2px; width: 80px;margin-right:10px;" type="button" ng-click="eaddMemory(Memory)">Thêm</button>
-                                            <button id="dialogEditmemory" class="btn btn-primary  edit-save" style="height: 55.2px; width: 80px; " type="button" ng-click="eeditMemory(MemoryName,MDescription)">Edit</button>
+                                            <button id="edialogAddmemory" class="btn btn-primary  save" style="height: 55.2px; width: 80px;margin-right:10px;" type="button" ng-click="eaddMemory(MemoryName,MDescription)">Thêm</button>
+                                            <button id="edialogEditmemory" class="btn btn-primary  edit-save" style="height: 55.2px; width: 80px; " type="button" ng-click="eeditMemory(MemoryName,MDescription)">Edit</button>
                                         </div>
                                     </div>
 
@@ -388,8 +383,7 @@
                                         <td>{{Memory.MemoryName}}</td>
                                         <td>{{Memory.Description}}</td>
                                         <td class="actions" style="width:65px;">
-                                            <a href="" class="on-default editMemory"><i class="fa fa-pencil"></i></a>
-                                            <a href="" class="on-default removeMemory"><i class="fa fa-trash-o"></i></a>
+                                            <a href="" class="on-default removeMemory" ng-click="eRemoveMemory(Memory)"><i class="fa fa-trash-o"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -398,30 +392,32 @@
                         <div class="col-10 sub-block">
                             <div class="block" style=" background: oldlace;">
                                 <div class="row justify-content-between text-left">
-                                    <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Màu<span class="text-danger"> *</span></label> <input type="text" id="colorName" name="colorName" placeholder="Nhập Màu" required ng-model="Color.ColorName"> </div>
-                                    <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Giá<span class="text-danger"> *</span></label> <input type="text" id="price" name="price" placeholder="Nhập giá" required ng-model="Color.Price"> </div>
-                                    <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Số lượng<span class="text-danger"> *</span></label> <input type="text" id="quantityColor" name="quantityColor" placeholder="Số lượng" required ng-model="Color.Quantity"> </div>
+                                    <input type="hidden" id="ColorId" name="ColorId" value="{{EColorID}}">
+                                    <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Màu<span class="text-danger"> *</span></label> <input type="text" id="colorName" name="colorName" placeholder="Nhập Màu" required ng-model="EColorName"> </div>
+                                    <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Giá<span class="text-danger"> *</span></label> <input type="text" id="price" name="price" placeholder="Nhập giá" required ng-model="EPrice"> </div>
+                                    <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Số lượng<span class="text-danger"> *</span></label> <input type="text" id="quantityColor" name="quantityColor" placeholder="Số lượng" required ng-model="EQuantity"> </div>
                                 </div>
                                 <div class="row justify-content-between text-left">
                                     <div class="form-group col-sm-8 flex-column d-flex">
                                         <label class="form-control-label px-3">Ảnh<span class="text-danger"> *</span></label>
-                                        <div class="fileupload fileupload-new" data-provides="fileupload" style="width: 100%;">
+                                        <div class="fileupload fileupload-new" id="ecolorImage" data-provides="fileupload" style="width: 100%;">
                                             <div class="input-append">
                                                 <div class="uneditable-input">
-                                                    <span class="fileupload-preview" id="ecolorImage"></span>
+                                                    <span class="fileupload-preview" id="einputcolorImage">{{EColorImage}}</span>
                                                 </div>
                                                 <span class="btn btn-default btn-file">
                                                     <span class="fileupload-exists">Thay đổi</span>
                                                     <span class="fileupload-new">Chọn ảnh</span>
                                                     <input type="file" accept="image/*" ngf-select="UploadFiles($file)">
                                                 </span>
-                                                <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                                <a href="" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-4 flex-column d-flex">
-                                        <div class="col-md-12 text-right">
-                                            <button id="edialogAddColorPrice" class="btn btn-primary  save" style="height: 55.2px; width: 80px; " type="button" ng-click="addColor(Color)">Thêm</button>
+                                        <div class="col-md-12 text-right" style="display:flex;">
+                                            <button id="edialogAddColorPrice" class="btn btn-primary  save" style="height: 55.2px; width: 80px;margin-right:10px; " type="button" ng-click="eaddColor(EColorID,EColorName,EPrice,EQuantity)">Thêm</button>
+                                            <button id="edialogEditColorPrice" class="btn btn-primary  edit-save" style="height: 55.2px; width: 80px; " type="button" ng-click="eeditColor(EColorID,EColorName,EPrice,EQuantity)">Edit</button>
                                         </div>
                                     </div>
 
@@ -439,14 +435,13 @@
                                     </tr>
                                 </thead>
                                 <tbody id="ettable3">
-                                    <tr class="gradeA" ng-repeat="Color in Colors">
+                                    <tr class="gradeA" ng-repeat="Color in Colors" ng-click="clickColor(Color)">
                                         <td>{{Color.ColorName}}</td>
                                         <td>{{Color.Price}}</td>
                                         <td>{{Color.Quantity}}</td>
                                         <td class="image_index"><img src="~/assets/images/{{Color.ColorImage}}" /></td>
                                         <td class="actions" style="width:65px;">
-                                            <a href="#" class="on-default editColor"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" class="on-default removeColor"><i class="fa fa-trash-o"></i></a>
+                                            <a href="" class="on-default removeColor" ng-click="eRemoveColor(Color)"><i class="fa fa-trash-o"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>

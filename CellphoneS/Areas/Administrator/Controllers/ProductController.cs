@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Data.SqlClient;
 using System.Web;
 using System.Web.Mvc;
 using OBJ;
@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 
 namespace CellphoneS.Areas.Administrator.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         ProductBUS productBUS = new ProductBUS();
@@ -60,7 +61,7 @@ namespace CellphoneS.Areas.Administrator.Controllers
         public JsonResult InsertProduct(string p)
         {
             ProductMemosColors obj = JsonConvert.DeserializeObject<ProductMemosColors>(p);
-            //productBUS.InsertProductMemosColors(obj);
+            productBUS.InsertProductMemosColors(obj);
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
 
@@ -79,6 +80,36 @@ namespace CellphoneS.Areas.Administrator.Controllers
         public JsonResult GetProductDetail(string productID)
         {
             return Json(productBUS.GetProductDetail(productID), JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public void EditMemory(string memoryID, string memoryName, string description)
+        {
+            productBUS.EditMemory(memoryID, memoryName, description);
+        }
+        [HttpPost]
+        public void EditColor(string colorID, string colorName, string colorImage, string quantity, string price)
+        {
+            productBUS.EditColor(colorID, colorName, colorImage, quantity, price);
+        }
+        [HttpPost]
+        public void InsertMemory(string productID, string memoryName, string description)
+        {
+            productBUS.InsertMemory(productID, memoryName, description);
+        }
+        [HttpPost]
+        public void InsertColor(string productID, string memoryID, string colorName, string colorImage, string quantity, string price)
+        {
+            productBUS.InsertColor(productID, memoryID, colorName, colorImage, quantity, price);
+        }
+        [HttpPost]
+        public void DeleteColor(string id)
+        {
+            productBUS.DeleteColor(id);
+        }
+        [HttpPost]
+        public void DeleteMemory(string id)
+        {
+            productBUS.DeleteMemory(id);
         }
     }
 }

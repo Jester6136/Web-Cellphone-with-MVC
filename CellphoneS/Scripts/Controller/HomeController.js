@@ -6,6 +6,7 @@
         url: '/Home/GetTop15ProductPhone'
     }).then(function success(res) {
         var Products = JSON.parse(JSON.parse(res.data));
+        console.log(Products);
         Products = Products.map(function (product) {
             product.NewPrice = numberFormat.format(product.NewPrice)
             product.OldPrice = numberFormat.format(product.OldPrice)

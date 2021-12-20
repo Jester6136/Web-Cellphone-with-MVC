@@ -1,6 +1,7 @@
 ﻿
 var myapp = angular.module('Myapp', ['angularUtils.directives.dirPagination','ngFileUpload']);//khai baso module
 
+
 myapp.factory('Product_ROM', function () {
     return {
         ProductID : "",
@@ -62,7 +63,6 @@ var ConvertToJsonString = function (Object) {
 //ProductDetailController
 myapp.controller("productsController", function ($http, $scope, $rootScope, Upload, Product_ROM) {
     $('#dialogConfirmNewProduct').click(function () {
-        console.log(Product_ROM);
         $scope.Products.push(Product_ROM);
         Product_ROM.ProductID = "";
         Product_ROM.ProductName = "";
@@ -96,7 +96,7 @@ var GetProductDetail = function (details) {
                             <th></th>
                             <td>${details[i].ColorID}</td>
                             <td>${details[i].ColorName}</td>
-                            <td><img class="image_index" src="/assets/images/`+ details[i].ColorImage + `"/></td>
+                            <td  class="image_index"><img src="/assets/images/`+ details[i].ColorImage + `"/></td>
                             <td>${details[i].NewPrice}</td>
                             <td>${details[i].OldPrice}</td>
                         </tr>
@@ -219,7 +219,6 @@ myapp.controller("addProductController", function ($http, $scope, $rootScope, Up
         $rootScope.NewProduct.CategoryName = $scope.CategoryBrand[0].CategoryName;
         $scope.Brands = $scope.Categories[0].Brands;
         $rootScope.NewProduct.BrandName = $scope.Brands[0].BrandName;
-        console.log(CategoryBrand);
     }, function error(res) {
         console.log(res);
     })
@@ -233,13 +232,14 @@ myapp.controller("addProductController", function ($http, $scope, $rootScope, Up
     });
 
 
-    $scope.UploadFiles = function (file) {
+    $rootScope.UploadFiles = function (file) {
         $scope.SelectedFiles = file;
         if ($scope.SelectedFiles) {
             Upload.upload({
                 url: 'UploadImage',
                 data: { files: $scope.SelectedFiles }
             }).then(function Success(res) {
+                $rootScope.tmpImage = res.data[0];
                 toastr.success("Thêm ảnh thành công");
             }, function Error(res) {
                 toastr.error("Thêm ảnh thất bại");
@@ -247,21 +247,20 @@ myapp.controller("addProductController", function ($http, $scope, $rootScope, Up
         }
     }
 
-
     $('#dialogConfirmNewProduct').click(function () {
         $rootScope.NewProduct.ProductName = $rootScope.NewProduct.ProductName;
         $rootScope.NewProduct.DateRelease = $('#DateRelease').val();
         $rootScope.NewProduct.ImageName = $('#imageName')[0].textContent;
-        $rootScope.NewProduct.CategoryName = $rootScope.NewProduct.CategoryName;
-        $rootScope.NewProduct.BrandName = $rootScope.NewProduct.BrandName;
+        $rootScope.NewProduct.CategoryName = $('#cName').val();
+        $rootScope.NewProduct.BrandName = $('#brand').val();
         $rootScope.NewProduct.Memories = $rootScope.Memories;
-
+        console.log($rootScope.NewProduct);
         $http({
             method: 'POST',
             url: 'InsertProduct',
-            data: { p: ConvertToJsonString($rootScope.NewProduct).replace(/\s/g,'') }
+            data: { p: ConvertToJsonString($rootScope.NewProduct) }
         }).then(function Success(res) {
-            console.log(res);
+            //console.log(res);
             //Set new to current view
             Product_ROM.ProductID = $('#fid').val();
             Product_ROM.ProductName = $rootScope.NewProduct.ProductName;
@@ -276,6 +275,7 @@ myapp.controller("addProductController", function ($http, $scope, $rootScope, Up
             $rootScope.Colors = [];
             $rootScope.num = 0;
             $('#imageName').text('')
+            $('#colorImage')[0].textContent = "";
             $('#impressive_image').removeClass('fileupload-exists').addClass('fileupload-new');
             //Reset ID
             $.get(`/Product/GetNextProductID`).done(
@@ -320,7 +320,6 @@ myapp.controller("memoryTable", function ($http, $scope, $rootScope) {
 
 
     $('#ttable2').on('click', 'tr', function () {
-        console.log('ngu')
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
         }
@@ -347,6 +346,7 @@ myapp.controller("memoryTable", function ($http, $scope, $rootScope) {
         $scope.Color.ColorImage = $('#colorImage')[0].textContent;
         $scope.Color.Quantity = $scope.Color.Quantity;
         $rootScope.Colors.push(Color);
+        $('#colorImage')[0].textContent = "";
         $scope.Color = {};
         $scope.Color.ColorImage = '';
     }
@@ -363,10 +363,7 @@ myapp.controller("editProductController", function ($http, $scope, $rootScope) {
         }).then(function success(res) {
             var Megaproduct = JSON.parse(JSON.parse(res.data));
             $scope.Megaproduct = Megaproduct[0];
-            console.log($scope.Megaproduct)
-
-
-
+            console.log(Megaproduct);
 
             //Controller EDIT
 
@@ -400,7 +397,6 @@ myapp.controller("editProductController", function ($http, $scope, $rootScope) {
                         }
                     }
                 }
-                console.log(index);
                 $scope.CategoryBrand = CategoryBrand;
                 $scope.Brands = $scope.Categories[index].Brands;
             }, function error(res) {
@@ -420,38 +416,249 @@ myapp.controller("editProductController", function ($http, $scope, $rootScope) {
                         $scope.Colors = $scope.Megaproduct.Memories[i].Colors;
                     }
                 }
+                ///EDIT MEMORY
                 $scope.eeditMemory = function (MemoryName, MDescription) {
-                    obj.MemoryName = MemoryName;
-                    obj.Description = MDescription;
+                    $http({
+                        method: 'post',
+                        params: {
+                            memoryID: obj.MemoryID,
+                            MemoryName: MemoryName,
+                            description: MDescription
+                        },
+                        url: 'EditMemory'
+                    }).then(function success(res) {
+                        toastr.success("Sửa thành công")
+                        obj.MemoryName = MemoryName;
+                        obj.Description = MDescription;
+                    }, function error(res) {
+                        toastr.error("Sửa thất bại")
+                    })
+                }
+                ///END EDIT MEMORY
+            }
+
+            
+            //ADD Memory
+            $scope.eaddMemory = function (MemoryName, MDescription) {
+                if (MDescription == null) {
+                    MDescription = "";
+                }
+                var status = 0;
+                for (var i = 0; i < $scope.Megaproduct.Memories.length; i++) {
+                    if ($scope.Megaproduct.Memories[i].MemoryName == MemoryName) {
+                        status = 1;
+                    }
+                }
+                if (status == 0) {
+                    $http({
+                        method: 'post',
+                        params: {
+                            productID: $scope.Megaproduct.ProductID,
+                            memoryName: MemoryName,
+                            description: MDescription
+                        },
+                        url: 'InsertMemory'
+                    }).then(function success(res) {
+                        console.log(res);
+                        toastr.success("Thêm thành công")
+                        var Memory = [];
+                        Memory.MemoryID = 'ngu';
+                        Memory.MemoryName = MemoryName;
+                        Memory.Description = MDescription;
+                        $scope.Megaproduct.Memories.push(Memory);
+                    }, function error(res) {
+                        toastr.error("Thêm thất bại")
+                    })
+                } else {
+                    toastr.error("Đã tồn tại bộ nhớ này");
+                }
+            }
+                //END add memory
+            //
+
+            //Click Color
+            $scope.clickColor = function (obj) {
+                $scope.EColorID = obj.ColorID;
+                $scope.EColorName = obj.ColorName;
+                $scope.EPrice = obj.Price;
+                $scope.EQuantity = obj.Quantity;
+                console.log(obj);
+                //If have image
+                if (obj.ColorImage != "") {
+                    $('#ecolorImage').removeClass('fileupload-new').addClass('fileupload-exists');
+                    $scope.EColorImage = obj.ColorImage;
+                    console.log(obj.ColorImage);
+                }
+                else {
+                    $('#ecolorImage').removeClass('fileupload-exists').addClass('fileupload-new')
+                    $scope.EColorImage = "";
+                }
+            }
+            //
+            //END change color click memory
+            //END begin Memoríe Colors
+
+
+            //ADD Color 
+            $scope.eaddColor = function (EColorID,EColorName, EPrice, EQuantity) {
+                var index =-1;
+                var checked = 0;
+                var color = []
+                color.ColorID = "ngu";
+                color.ColorName = EColorName
+                color.Price = EPrice
+                color.Quantity = EQuantity
+                color.ColorImage = $('#einputcolorImage')[0].textContent
+                var MemoryID = $('#ettable2 .selected').children()[0].textContent;
+                for (var i = 0; i < $scope.Megaproduct.Memories.length; i++) {
+                    if ($scope.Megaproduct.Memories[i].MemoryID == MemoryID) {
+                        index = i;
+                        if ($scope.Megaproduct.Memories[i].Colors != null) {
+                            for (var j = 0; j < $scope.Megaproduct.Memories[i].Colors.length; j++) {
+                                if ($scope.Megaproduct.Memories[i].Colors[j].ColorName == EColorName) {
+                                    checked = 1;
+                                }
+                            }
+                        }
+                        
+                        break;
+                    }
+                }
+                if (checked == 0) {
+                    $http({
+                        method: 'post',
+                        url: 'InsertColor',
+                        params: {
+                            productID: $scope.Megaproduct.ProductID,
+                            memoryID: $scope.Megaproduct.Memories[index].MemoryID,
+                            colorName: EColorName,
+                            colorImage: $('#einputcolorImage')[0].textContent,
+                            quantity: EQuantity,
+                            price: EPrice
+                        }
+                    }).then(function success(res) {
+                        toastr.success("Thành công");
+                        if (typeof ($scope.Megaproduct.Memories[index].Colors) == 'undefined') {
+                            $scope.Megaproduct.Memories[index].Colors = []
+                            $scope.Megaproduct.Memories[index].Colors.push(color);
+                            $scope.Colors = $scope.Megaproduct.Memories[i].Colors;
+                        }
+                        else
+                            $scope.Megaproduct.Memories[index].Colors.push(color);
+                    },function error(res) {
+                            toastr.error("Lỗi thêm màu");
+                        })
+                 }
+                else {
+                    toastr.error("Màu đã tồn tại")
                 }
             }
 
-            //change color click memory
-            $('#ettable2').on('click', 'tr', function () {
-                if ($(this).hasClass('selected')) {
-                    $(this).removeClass('selected');
-                }
-                else {
-                    $.each($('#ettable2 tr.selected'), function (idx, val) {
-                        $(this).removeClass('selected');
-                    });
-                    $(this).addClass('selected');
-                }
-            });
+            //END ADD COLor
 
 
+            //EDIT COLOR
+            $scope.eeditColor = function (EColorID, EColorName, EPrice, EQuantity) {
+                var ColorImage = $('#einputcolorImage')[0].textContent
+                for (var i = 0; i < $scope.Megaproduct.Memories.length; i++) {
+                    if (typeof ($scope.Megaproduct.Memories[i].Colors) == 'undefined') {
+                        continue
+                    }
+                    for (var j = 0; j < $scope.Megaproduct.Memories[i].Colors.length; j++) {
+                        if ($scope.Megaproduct.Memories[i].Colors[j].ColorID == EColorID) {
+                            var indexMemory = i
+                            var indexColor = j
+                            $http({
+                                method: 'post',
+                                params: {
+                                    colorID: EColorID,
+                                    colorName: EColorName,
+                                    colorImage: ColorImage,
+                                    quantity: EQuantity,
+                                    price: EPrice
+                                },
+                                url: 'EditColor'
+                            }).then(function success(res) {
+                                toastr.success("Sửa thành công")
+                                console.log($scope.Megaproduct.Memories[i])
+                                $scope.Megaproduct.Memories[indexMemory].Colors[indexColor].ColorName = EColorName;
+                                $scope.Megaproduct.Memories[indexMemory].Colors[indexColor].Quantity = EQuantity;
+                                $scope.Megaproduct.Memories[indexMemory].Colors[indexColor].Price = EPrice;
+                                $scope.Megaproduct.Memories[indexMemory].Colors[indexColor].ColorImage = ColorImage;
+
+                            }, function error(res) {
+                                toastr.success("Sửa thất bại")
+                            })
+                        }
+                    }
+                }
+            }
+
+            $scope.eRemoveMemory = function (obj) {
+                $http({
+                    url: 'DeleteMemory',
+                    params: { id: obj.MemoryID },
+                    method: 'post'
+                }).then(function success(res) {
+                    $scope.Memories.splice($scope.Memories.indexOf(obj), 1);
+                }, function error() {
+                    toastr.error("Xóa lỗi");
+                })
+            }
+
+            $scope.eRemoveColor = function (obj) {
+                $http({
+                    url: 'DeleteColor',
+                    params: { id: obj.ColorID },
+                    method: 'post'
+                }).then(function success(res) {
+                    $scope.Colors.splice($scope.Colors.indexOf(obj), 1);
+                }, function error() {
+                    toastr.error("Xóa lỗi");
+                })
+            }
+
+            //EDIT COlor
         }, function error(res) {
             console.log(res);
         })
 
         $('#eimpressive_image').removeClass('fileupload-new').addClass('fileupload-exists');
-
-
-
+        
         $('#dialogEditmember').show();  
     }
 
-    
+    //change color click memory
+    $('#ettable2').on('click', 'tr', function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        }
+        else {
+            $.each($('#ettable2 tr.selected'), function (idx, val) {
+                $(this).removeClass('selected');
+            });
+            $(this).addClass('selected');
+        }
+    });
+
+    $('#ettable3').on('click', 'tr', function () {
+        if ($(this).hasClass('selected')) {
+            $scope.EColorName = "";
+            $scope.EPrice = "";
+            $scope.EQuantity = "";
+            $('#einputcolorImage')[0].textContent = "";
+            $('#ecolorImage').removeClass('fileupload-exists').addClass('fileupload-new')
+            $scope.$apply();
+            $(this).removeClass('selected');
+        }
+        else {
+            $.each($('#ettable3 tr.selected'), function (idx, val) {
+                $(this).removeClass('selected');
+            });
+            $(this).addClass('selected');
+        }
+    });
+
     //Change category
     $('.ecategory').on('change', function (e) {
         var optionSelected = $("option:selected", this);

@@ -54,5 +54,32 @@ namespace BUS
         {
             return productDAO.GetCategoryBrandADMIN();
         }
+
+        public void EditMemory(string memoryID, string memoryName, string description)
+        {
+            productDAO.EditMemory(memoryID, memoryName, description);
+        }
+
+        public void EditColor(string colorID, string colorName, string colorImage, string quantity, string price)
+        {
+            productDAO.EditColor(colorID, colorName, colorImage, quantity, price);
+        }
+
+        public void InsertMemory(string productID, string memoryName, string description)
+        {
+            productDAO.InsertMemory( productID, memoryName, description);
+        }
+        public void InsertColor(string productID, string memoryID, string colorName, string colorImage, string quantity, string price)
+        {
+            productDAO.InsertColor(productID, memoryID, colorName, colorImage, quantity, price);
+        }
+        public void DeleteColor(string id)
+        {
+            productDAO.DeleteColor(id);
+        }
+        public void DeleteMemory(string id)
+        {
+            productDAO.DeleteMemory(id);
+        }
     }
 }

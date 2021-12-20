@@ -126,6 +126,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Administrator\AdministratorAreaRegistration.cs" />
+    <Compile Include="Areas\Administrator\Controllers\LoginController.cs" />
     <Compile Include="Areas\Administrator\Controllers\ProductController.cs" />
     <Compile Include="Areas\Administrator\Controllers\PromotionController.cs" />
     <Compile Include="Controllers\CartController.cs" />
@@ -1695,6 +1696,8 @@
     <Content Include="Areas\Administrator\assets\vendor\toast\toastr.css" />
     <Content Include="Areas\Administrator\assets\vendor\toast\toastr.min.css" />
     <Content Include="Areas\Administrator\assets\vendor\toast\toastr.min.js" />
+    <Content Include="Areas\Administrator\Scripts\Controller\LoginController.js" />
+    <Content Include="Areas\Administrator\Scripts\Controller\MenuController.js" />
     <Content Include="assets\css\admin.css" />
     <Content Include="assets\css\style.css" />
     <Content Include="assets\css\test.css" />
@@ -11797,6 +11800,8 @@
     <Content Include="Areas\Administrator\assets\vendor\style-switcher\less\variables.less" />
     <Content Include="Areas\Administrator\assets\vendor\toast\toastr.js.map" />
     <Content Include="Areas\Administrator\Views\Product\Index.cshtml" />
+    <Content Include="Areas\Administrator\Views\Login\Index.cshtml" />
+    <Content Include="Areas\Administrator\Views\Login\Login.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\FileAPI.flash.swf" />
     <Content Include="Scripts\FileAPI.js" />
@@ -12590,6 +12595,7 @@
     <Folder Include="Areas\Administrator\Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Order\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
