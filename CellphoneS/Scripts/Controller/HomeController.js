@@ -19,6 +19,25 @@
     $scope.getProduct = function (pd) {
         localStorage.setItem('product', JSON.stringify(pd))
     }
+
+    $scope.OldProducts = []
+    $http({
+        method: 'get',
+        params: {},
+        url: '/Home/GetOldProducts'
+    }).then(function success(res) {
+        var Products = JSON.parse(JSON.parse(res.data));
+        console.log(Products);
+        Products = Products.map(function (product) {
+            product.NewPrice = numberFormat.format(product.NewPrice)
+            product.OldPrice = numberFormat.format(product.OldPrice)
+            return product
+        })
+        $scope.OldProducts = Products;
+    }, function error(res) {
+        console.log(res)
+    })
+
 })
 
 

@@ -1,4 +1,10 @@
 ﻿myapp.controller('cartController', function ($http, $scope, $rootScope) {
+    if (localStorage.getItem("cartQuantity") === null) {
+        $rootScope.CartQuantity = 0
+    }
+    else {
+        $rootScope.CartQuantity = localStorage.getItem('cartQuantity');
+    }
     $scope.Order = [];
     $scope.Cart = []
     $scope.sumPrice = 0;
@@ -41,8 +47,6 @@
         toastr.info("Hãy đăng nhập để xem giỏ hàng của bạn");
     }
 
-    
-
     $scope.delete = function (obj) {
         $scope.Cart.splice($scope.Cart.indexOf(obj), 1);
         $http({
@@ -51,6 +55,8 @@
             params: {cartID : obj.CartID}
         }).then(function success() {
             toastr.success("Đã xóa sản phẩm khỏi giỏ hàng")
+            $rootScope.CartQuantity -= 1;
+            localStorage.setItem('cartQuantity', $rootScope.CartQuantity);
         }, function error() {
             toastr.info("Lỗi giỏ hàng");
         })
@@ -83,6 +89,9 @@
             $scope.Cart = []
             $scope.sumPrice = 0;
             $scope.sumPriceShow = numberFormat.format("0");
+            $rootScope.CartQuantity = 0;
+            localStorage.setItem('cartQuantity', $rootScope.CartQuantity);
+            localStorage.setItem('cartQuantity',0);
         }, function error(res) {
             console.log(res);
         })

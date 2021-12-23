@@ -134,6 +134,8 @@
                     params: { cart: newcartJson },
                     url: "/Cart/InsertCart"
                 }).then(function success(res) {
+                    $rootScope.CartQuantity += 1;
+                    localStorage.setItem('cartQuantity', $rootScope.CartQuantity);
                     window.location.href = '/Cart/Index';
                     console.log(res);
                 }, function error(res) {

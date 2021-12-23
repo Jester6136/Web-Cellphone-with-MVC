@@ -3,6 +3,13 @@
 var myapp = angular.module('MyApp', ['angularUtils.directives.dirPagination']);//khai baso module
 
 myapp.controller("menuController", function ($scope, $http, $rootScope) {
+    if (localStorage.getItem("cartQuantity") === null) {
+        $rootScope.CartQuantity = 0
+    }
+    else {
+        $rootScope.CartQuantity = localStorage.getItem('cartQuantity');
+    }
+
     $http.get("/Home/GetMenu").then(function Success(res) {
         var table = JSON.parse(JSON.parse(res.data));
         var keys = Object.keys(table);
@@ -85,6 +92,18 @@ myapp.controller("loginController", function ($rootScope, $window, $http, $scope
                 $rootScope.Status = "Login"
             }
             else {
+                //Get quantity cart
+                $http({
+                    method: 'get',
+                    params: { id: d.data.Khach.CustomerID },
+                    url: '/Cart/GetCartQuantity'
+                }).then(function success(res) {
+                    $rootScope.CartQuantity = parseInt(JSON.parse(res.data));
+                    localStorage.setItem('cartQuantity', $rootScope.CartQuantity);
+                }, function error(e) {
+                    console.log(e);
+                })
+                //Get quantity cart
                 sessionStorage.setItem("login", d.data.login);
                 sessionStorage.setItem("khach", JSON.stringify(d.data.Khach));
                 $rootScope.Status = d.data.Khach.CustomerName

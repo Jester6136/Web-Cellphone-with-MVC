@@ -96,10 +96,15 @@ namespace DAO
             {
                 while (dr.Read())
                 {
-                    result = dr[0].ToString();
+                    result = dr["Json"].ToString();
                 }
             }
             return result;
+        }
+        public void EditProduct(string id,string name,string date,string imageName)
+        {
+            string spName = "EditProduct";
+            dh.StoreReaders(spName, id, name, date, imageName);
         }
         public List<ProductDetailsADMIN> GetProductDetailsADMIN(string memoryID)
         {
@@ -175,6 +180,21 @@ namespace DAO
         {
             string spName = "GetTop15ProductPhone";
             SqlDataReader dr=  dh.StoreReaders(spName);
+            string result = "";
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    result = dr[0].ToString();
+                }
+            }
+            return result;
+        }
+
+        public string GetOldProducts()
+        {
+            string spName = "GetOldProducts";
+            SqlDataReader dr = dh.StoreReaders(spName);
             string result = "";
             if (dr.HasRows)
             {

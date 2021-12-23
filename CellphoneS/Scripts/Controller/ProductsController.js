@@ -8,7 +8,7 @@ myapp.controller("ProductsBrand", function ($http, $scope, $rootScope) {
     $scope.totalCount = 0;
 
     $scope.pageIndex = 1;
-    $scope.pageSize = 10;
+    $scope.pageSize = 5;
     $scope.SearchName = '';
 
     $scope.GetProductsbyBrandPagination = function (index) {
@@ -35,7 +35,7 @@ myapp.controller("ProductsBrand", function ($http, $scope, $rootScope) {
         }, function Error(res) { })
     }
     
-    $scope.GetProductsbyBrandPagination($scope.pageIndex)
+    $scope.GetProductsbyBrandPagination($scope.pageIndex)   
 
     $scope.sortcolumn = "NewPrice";
     $scope.reverse = true;

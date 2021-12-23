@@ -24,5 +24,9 @@ namespace BUS
         {
             cartDAO.DeleteCart(cartID);
         }
+        public string GetCartQuantity(string id)
+        {
+            return cartDAO.GetCartQuantity(id);
+        }
     }
 }

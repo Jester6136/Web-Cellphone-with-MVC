@@ -79,7 +79,12 @@ namespace CellphoneS.Areas.Administrator.Controllers
         [HttpGet]
         public JsonResult GetProductDetail(string productID)
         {
-            return Json(productBUS.GetProductDetail(productID), JsonRequestBehavior.AllowGet);
+            string json = productBUS.GetProductDetail(productID);
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+        public void EditProduct(string id, string name, string date, string imageName)
+        {
+            productBUS.EditProduct(id, name, date, imageName);
         }
         [HttpPost]
         public void EditMemory(string memoryID, string memoryName, string description)

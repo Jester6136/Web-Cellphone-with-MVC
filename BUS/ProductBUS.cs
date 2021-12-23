@@ -25,7 +25,10 @@ namespace BUS
         {
             return productDAO.GetProductsBrand(categoryID, brandID);
         }
-
+        public void EditProduct(string id, string name, string date, string imageName)
+        {
+            productDAO.EditProduct(id, name, date, imageName);
+        }
         public ListProduct GetProductsbyBrandPagination(int pageIndex, int pageSize, string productName, string categoryID, string brandID)
         {
             return productDAO.GetProductsbyBrandPagination(pageIndex, pageSize, productName, categoryID, brandID);
@@ -49,6 +52,10 @@ namespace BUS
         public string GetTop15ProductPhone()
         {
             return productDAO.GetTop15ProductPhone();
+        }
+        public string GetOldProducts()
+        {
+            return productDAO.GetOldProducts();
         }
         public string GetCategoryBrandADMIN()
         {

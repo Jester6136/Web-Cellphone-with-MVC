@@ -63,7 +63,7 @@ var ConvertToJsonString = function (Object) {
 //ProductDetailController
 myapp.controller("productsController", function ($http, $scope, $rootScope, Upload, Product_ROM) {
     $('#dialogConfirmNewProduct').click(function () {
-        $scope.Products.push(Product_ROM);
+        $rootScope.Products.push(Product_ROM);
         Product_ROM.ProductID = "";
         Product_ROM.ProductName = "";
         Product_ROM.CategoryName = "";
@@ -81,7 +81,7 @@ myapp.controller("productsController", function ($http, $scope, $rootScope, Uplo
         }
     }).then(function Success(res) {
         var Products = res.data;
-        $scope.Products = Products;
+        $rootScope.Products = Products;
 
     }, function Error(res) {
         alert("Lấp sản phẩm lỗi");
@@ -363,7 +363,6 @@ myapp.controller("editProductController", function ($http, $scope, $rootScope) {
         }).then(function success(res) {
             var Megaproduct = JSON.parse(JSON.parse(res.data));
             $scope.Megaproduct = Megaproduct[0];
-            console.log(Megaproduct);
 
             //Controller EDIT
 
@@ -459,7 +458,6 @@ myapp.controller("editProductController", function ($http, $scope, $rootScope) {
                         },
                         url: 'InsertMemory'
                     }).then(function success(res) {
-                        console.log(res);
                         toastr.success("Thêm thành công")
                         var Memory = [];
                         Memory.MemoryID = 'ngu';
@@ -482,12 +480,10 @@ myapp.controller("editProductController", function ($http, $scope, $rootScope) {
                 $scope.EColorName = obj.ColorName;
                 $scope.EPrice = obj.Price;
                 $scope.EQuantity = obj.Quantity;
-                console.log(obj);
                 //If have image
                 if (obj.ColorImage != "") {
                     $('#ecolorImage').removeClass('fileupload-new').addClass('fileupload-exists');
                     $scope.EColorImage = obj.ColorImage;
-                    console.log(obj.ColorImage);
                 }
                 else {
                     $('#ecolorImage').removeClass('fileupload-exists').addClass('fileupload-new')
@@ -580,7 +576,6 @@ myapp.controller("editProductController", function ($http, $scope, $rootScope) {
                                 url: 'EditColor'
                             }).then(function success(res) {
                                 toastr.success("Sửa thành công")
-                                console.log($scope.Megaproduct.Memories[i])
                                 $scope.Megaproduct.Memories[indexMemory].Colors[indexColor].ColorName = EColorName;
                                 $scope.Megaproduct.Memories[indexMemory].Colors[indexColor].Quantity = EQuantity;
                                 $scope.Megaproduct.Memories[indexMemory].Colors[indexColor].Price = EPrice;
@@ -665,6 +660,26 @@ myapp.controller("editProductController", function ($http, $scope, $rootScope) {
         var index = optionSelected[0].className;
         $scope.Brands = $scope.Categories[index].Brands;
     });
+
+    $scope.EditProduct = function (ProductID, ProductName, ReleaseDate) {
+        var ImageName = $('#eimageName').text()
+        $http({
+            url: 'EditProduct',
+            params: { id: ProductID, name: ProductName, date: ReleaseDate, imageName: ImageName },
+            method: 'post'
+        }).then(function success() {
+            for (var i = 0; i < $rootScope.Products.length; i++) {
+                if ($rootScope.Products[i].ProductID == ProductID) {
+                    $rootScope.Products[i].ProductName = ProductName;
+                    $rootScope.Products[i].ImageName = ImageName;
+                }
+            }
+            toastr.success("Sửa thành công")
+            $('#dialogEditmember').hide();
+        }, function error() {
+            toastr.error("Sửa thất bại")
+        })
+    }   
 })
 
 ////////////////////////////DeleteProduct////////////////////////////

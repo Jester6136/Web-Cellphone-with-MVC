@@ -154,21 +154,21 @@
         </div>
         <div style="clear: both; margin-top: 20px;margin-bottom: 50px;"></div>
         <div class="tittle-box">
-            <h3>Laptop</h3>
+            <h3>Sản phẩm cũ</h3>
         </div>
         <div class="list-product">
-            <div id="16" class="product col-4 col-m-5 col-s-10">
+            <div class="product col-4 col-m-5 col-s-10" ng-repeat="Product in OldProducts">
                 <div class="product-img">
-                    <img src="assets/images/macbook-air-gold-select-201810_4.jpg" alt="">
+                    <img src="~/assets/images/{{Product.ImageName}}" alt="">
                 </div>
                 <div class="product-info">
-                    <h4 class="product-name">Apple MacBook Air M1 256GB 2020 | Chính hãng Apple Việt Nam</h4>
+                    <h4 class="product-name">{{Product.ProductName}}</h4>
                     <div class="price">
-                        <p class="special-price">26.200.000&nbsp;₫</p>
-                        <p class="old-price">27.990.000&nbsp;₫</p>
+                        <p class="special-price">{{Product.NewPrice}}</p>
+                        <p class="old-price">{{Product.OldPrice}}</p>
                     </div>
                     <div class="offers">
-                        <p>CPU: 8 nhân với 4 nhân hiệu năng cao...<br>Màn hình: 13.3 inchs</p>
+                        <p>{{Product.PromotionName}}</p>
                     </div>
                     <div class="rating">
                         <i class="fas fa-star"></i>
@@ -176,99 +176,14 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                        <p>4 đánh giá</p>
+                        <p>1 đánh giá</p>
                     </div>
                     <div class="product-btn">
-                        <a href="ProductDetail.html"><button class="buy-btn">Mua ngay</button></a>
+                        <a href="/Products/ProductDetail"><button class="buy-btn" ng-click="getProduct(Product)">Mua ngay</button></a>
                         <a href=""><button class="compare">So sánh</button></a>
                     </div>
                 </div>
             </div>
-            <div id="17" class="product col-4 col-m-5 col-s-10">
-                <div class="product-img">
-                    <img src="assets/images/mbp-silver-select-202011.jpg" alt="">
-                </div>
-                <div class="product-info">
-                    <h4 class="product-name">Apple MacBook Pro 13 Touch Bar M1 256GB 2020 | Chính hãng Apple Việt Nam</h4>
-                    <div class="price">
-                        <p class="special-price">31.500.000&nbsp;₫</p>
-                        <p class="old-price">25.990.000&nbsp;₫</p>
-                    </div>
-                    <div class="offers">
-                        <p>CPU: 8 nhân với 4 nhân hiệu năng cao...<br>Màn hình: 13.3 inchs</p>
-                    </div>
-                    <div class="rating">
-                    </div>
-                    <div class="product-btn">
-                        <a href="ProductDetail2.html"><button class="buy-btn">Mua ngay</button></a>
-                        <a href=""><button class="compare">So sánh</button></a>
-                    </div>
-                </div>
-            </div>
-            <div id="18" class="product col-4 col-m-5 col-s-10">
-                <div class="product-img">
-                    <img src="assets/images/RogLap.jpg" alt="">
-                </div>
-                <div class="product-info">
-                    <h4 class="product-name">Laptop ASUS Gaming ROG Strix G512	</h4>
-                    <div class="price">
-                        <p class="special-price">21.900.000&nbsp;₫</p>
-                        <p class="old-price">24.490.000&nbsp;₫</p>
-                    </div>
-                    <div class="offers">
-                        <p>Intel® Core™ I5-10300H, 2.50GHz upto...<br>Màn hình: 15.6 inchs</p>
-                    </div>
-                    <div class="rating">
-                    </div>
-                    <div class="product-btn">
-                        <a href="ProductDetail.html"><button class="buy-btn">Mua ngay</button></a>
-                        <a href=""><button class="compare">So sánh</button></a>
-                    </div>
-                </div>
-            </div>
-            <div id="19" class="product col-4 col-m-5 col-s-10">
-                <div class="product-img">
-                    <img src="assets/images/laptop-asus-vivobook-r564ja-uh51t-11.jpg" alt="">
-                </div>
-                <div class="product-info">
-                    <h4 class="product-name">Laptop Asus Vivobook R564JA-UH51T </h4>
-                    <div class="price">
-                        <p class="special-price">14.980.000&nbsp;₫</p>
-                        <p class="old-price">16.990.000&nbsp;₫</p>
-                    </div>
-                    <div class="offers">
-                        <p>CPU: Core i5 1035G1<br>Màn hình: 15.6 inchs</p>
-                    </div>
-                    <div class="rating">
-                    </div>
-                    <div class="product-btn">
-                        <a href="ProductDetail.html"><button class="buy-btn">Mua ngay</button></a>
-                        <a href=""><button class="compare">So sánh</button></a>
-                    </div>
-                </div>
-            </div>
-            <div id="20" class="product col-4 col-m-5 col-s-10">
-                <div class="product-img">
-                    <img src="assets/images/laptop-asus-vivobook-x415ma-pentium-n5030-4_2.jpg" alt="">
-                </div>
-                <div class="product-info">
-                    <h4 class="product-name">Laptop ASUS VivoBook X515MA-BR112T</h4>
-                    <div class="price">
-                        <p class="special-price">7.490.000&nbsp;₫</p>
-                        <p class="old-price"></p>
-                    </div>
-                    <div class="offers">
-                        <p>Intel Celeron N4020 , tốc độ 1.1...<br>Màn hình: 15.6 inchs</p>
-                    </div>
-                    <div class="rating">
-                    </div>
-                    <div class="product-btn">
-                        <a href="ProductDetail.html"><button class="buy-btn">Mua ngay</button></a>
-                        <a href=""><button class="compare">So sánh</button></a>
-                    </div>
-                </div>
-            </div>
-
         </div>
         <div style="clear: both; margin-top: 20px;margin-bottom: 50px;"></div>
         <div class="tittle-box">

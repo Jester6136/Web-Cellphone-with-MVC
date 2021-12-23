@@ -47,6 +47,12 @@ namespace CellphoneS.Controllers
         public JsonResult GetTop15ProductPhone()
         {
             return Json(productBUS.GetTop15ProductPhone(), JsonRequestBehavior.AllowGet);
+        
+        }
+        [HttpGet]
+        public JsonResult GetOldProducts()
+        {
+            return Json(productBUS.GetOldProducts(), JsonRequestBehavior.AllowGet);
         }
         
         public JsonResult Logout()

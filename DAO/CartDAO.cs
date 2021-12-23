@@ -38,5 +38,19 @@ namespace DAO
             string spName = "DeleteCart";
             dh.StoreReaders(spName, cartID);
         }
+        public string GetCartQuantity(string id)
+        {
+            string spName = "GetCartQuantity";
+            SqlDataReader dr = dh.StoreReaders(spName, id);
+            string result="";
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    result = dr[0].ToString();
+                }
+            }
+            return result;
+        }
     }
 }

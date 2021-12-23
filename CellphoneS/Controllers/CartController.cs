@@ -31,6 +31,11 @@ namespace CellphoneS.Controllers
         {
             cartBUS.DeleteCart(cartID);
         }
+        public JsonResult GetCartQuantity(string id)
+        {
+            string result = cartBUS.GetCartQuantity(id);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }
